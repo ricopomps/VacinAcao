@@ -1,27 +1,29 @@
-import React, { useState } from "react";
+import React from "react";
 import { Formik, Form, Field } from "formik";
-import DatePicker from "react-datepicker";
+import DatePicker from "./DatePicker";
 import "./styles.css";
 
 import "react-datepicker/dist/react-datepicker.css";
 const FormAgendamento = () => {
-  const [startDate, setStartDate] = useState(new Date());
   const valores = [1, 2, 3, 4, 5];
+  const onSubmit = (values) => {
+    console.log(values);
+  };
   return (
     <Formik
+      onSubmit={onSubmit}
       initialValues={{
         name: "",
         age: "",
         email: "",
+        schedule: "",
+        date: "",
       }}
     >
       <Form>
         <div className="form-agendamento">
           <label>Data de agendamento:</label>
-          <DatePicker
-            selected={startDate}
-            onChange={(date) => setStartDate(date)}
-          />
+          <DatePicker autoComplete="off" name="date" />
         </div>
         <div className="form-agendamento">
           <label htmlFor="schedule">Horário:</label>
