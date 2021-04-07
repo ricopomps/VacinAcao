@@ -23,7 +23,7 @@ const FormAgendamento = () => {
       <Form>
         <div className="form-agendamento">
           <label>Data de agendamento:</label>
-          <DatePicker autoComplete="off" name="date" />
+          <DatePicker autoComplete="off" minDate={new Date()} name="date" />
         </div>
         <div className="form-agendamento">
           <label htmlFor="schedule">Horário:</label>
@@ -44,8 +44,14 @@ const FormAgendamento = () => {
           <Field id="name" name="name" type="text"></Field>
         </div>
         <div className="form-agendamento">
-          <label htmlFor="age">Idade:</label>
-          <Field id="age" name="age" type="number"></Field>
+          <label htmlFor="age">Data de nascimento:</label>
+          <DatePicker
+            autoComplete="off"
+            showYearDropdown="true"
+            maxDate={new Date()}
+            changeYear="true"
+            name="age"
+          />
         </div>
         <div className="form-agendamento">
           <label htmlFor="email">Email:</label>

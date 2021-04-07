@@ -1,8 +1,11 @@
 import React from "react";
 import DateView from "react-datepicker";
 import { Field } from "formik";
-import "./styles.css";
+import { registerLocale } from "react-datepicker";
+import pt from "date-fns/locale/pt";
+
 function DatePicker(props) {
+  registerLocale("pt", pt);
   const { name, ...rest } = props;
   return (
     <div className="form-agendamento">
@@ -15,6 +18,9 @@ function DatePicker(props) {
               id={name}
               {...field}
               {...rest}
+              dateFormat="dd/MM/yyyy"
+              locale="pt"
+              dateFormatCalendar={"MMM yyyy"}
               selected={value}
               onChange={(val) => setFieldValue(name, val)}
             />
