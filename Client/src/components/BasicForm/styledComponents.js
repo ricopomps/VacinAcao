@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { Form, Button } from "react-bootstrap";
-import { Formik, Field, ErrorMessage } from "formik";
+import { Button } from "react-bootstrap";
+import { Form } from "formik";
 
 export const CONTAINER = styled.div`
   background: #f7f9fa;

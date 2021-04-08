@@ -1,14 +1,14 @@
 import * as Yup from "yup";
 export const validationSchema = Yup.object().shape({
   name: Yup.string()
-    .min(2, "*Names must have at least 2 characters")
-    .max(100, "*Names can't be longer than 100 characters")
-    .required("*Name is required"),
+    .min(2, "*Nome precisa ter pelo menos 2 caracteres")
+    .max(100, "*Nome não pode ter mais de 100 caracteres")
+    .required("*Nome é obrigatório"),
   email: Yup.string()
-    .email("*Must be a valid email address")
-    .max(100, "*Email must be less than 100 characters")
-    .required("*Email is required"),
-  blog: Yup.string()
-    .url("*Must enter URL in http://www.example.com format")
-    .required("*URL required"),
+    .email("*Insira um e-mail válido")
+    .max(100, "*Email deve ter no maximo 100 caracteres")
+    .required("*Email é obrigatório"),
+  age: Yup.date().required("*Idade é obrigatório").nullable(),
+  date: Yup.date().required("*Agendamento é obrigatório").nullable(),
+  schedule: Yup.date().required("*Horário é obrigatório"),
 });

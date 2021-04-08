@@ -1,15 +1,13 @@
 import React from "react";
 import DatePicker from "../FormAgendamento/DatePicker";
 import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
-import styled from "styled-components";
 import "react-datepicker/dist/react-datepicker.css";
-import { Button, Form } from "react-bootstrap";
+import { Form } from "react-bootstrap";
 import { Formik, Field, ErrorMessage } from "formik";
 import { validationSchema } from "./yupSchema";
 
 const BasicForm = () => {
   const valores = [1, 2, 3, 4, 5];
-  const error = "Campo obrigatório";
   return (
     <CONTAINER>
       <h1>Agendamento</h1>
@@ -39,9 +37,9 @@ const BasicForm = () => {
             <Form.Group controlId="formName">
               <label htmlFor="name">Nome:</label>
               <Field id="name" name="name" type="text"></Field>
-              {touched.name && errors.name ? (
-                <div className="error-message">{error}</div>
-              ) : null}
+              {touched.name && errors.name && (
+                <div className="error-message">{errors.name}</div>
+              )}
             </Form.Group>
             <Form.Group controlId="formAge">
               <label htmlFor="age">Data de nascimento:</label>
@@ -49,45 +47,48 @@ const BasicForm = () => {
                 autoComplete="off"
                 showYearDropdown="true"
                 maxDate={new Date()}
+                type="date"
                 changeYear="true"
                 name="age"
               />
+              {touched.age && errors.age && (
+                <div className="error-message">{errors.age}</div>
+              )}
             </Form.Group>
             <Form.Group controlId="formEmail">
               <Form.Label>Email :</Form.Label>
               <Field id="email" name="email" type="email"></Field>
-              {touched.email && errors.email ? (
-                <div className="error-message">{error}</div>
-              ) : null}
+              {touched.email && errors.email && (
+                <div className="error-message">{errors.email}</div>
+              )}
+            </Form.Group>
+            <Form.Group controlId="formDate">
+              <label>Data de agendamento :</label>
+              <DatePicker
+                autoComplete="off"
+                showYearDropdown="true"
+                minDate={new Date()}
+                changeYear="true"
+                type="date"
+                name="date"
+              />
+              {touched.date && errors.date && (
+                <div className="error-message">{errors.date}</div>
+              )}
             </Form.Group>
             <Form.Group controlId="formSchedule">
               <label htmlFor="schedule">Horário:</label>
-              <Field
-                id="schedule"
-                name="schedule"
-                list="schedules"
-                type="text"
-              ></Field>
+              <Field id="schedule" name="schedule" list="schedules"></Field>
               <datalist id="schedules">
                 {valores.map((designation, index) => {
                   return <option key={index}>{`${designation}`}</option>;
                 })}
               </datalist>
+              {touched.schedule && errors.schedule && (
+                <div className="error-message">{errors.schedule}</div>
+              )}
             </Form.Group>
-            <Form.Group controlId="formDate">
-              <Form.Label>Data de agendamento :</Form.Label>
-              <DatePicker
-                autoComplete="off"
-                showYearDropdown="true"
-                maxDate={new Date()}
-                changeYear="true"
-                name="age"
-              />
-              {touched.Date && errors.Date ? (
-                <div className="error-message">{error}</div>
-              ) : null}
-            </Form.Group>
-            <BUTTON variant="primary" type="submit" disabled={isSubmitting}>
+            <BUTTON variant="primary" type="submit">
               Submit
             </BUTTON>
           </MYFORM>
