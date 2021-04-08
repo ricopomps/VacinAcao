@@ -1,23 +1,18 @@
 import React from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
-import Navbar from "./components/Navbar";
+import NavBar from "./components/NavBar/NavBar";
 
-import Home from "./pages/Home";
-import Cart from "./pages/Cart";
-import Pokemon from "./pages/Pokemon";
-import Wishlist from "./pages/Wishlist";
-import Auth from "./pages/Auth";
+import Agendamento from "./Pages/Agendamento/Agendamento";
+import Listagem from "./Pages/Listagem/Listagem";
 
 const Routes = () => {
   return (
     <BrowserRouter>
-      <Navbar />
+      <NavBar />
       <Switch>
-        <Route path="/" exact component={Home} />
-        <Route path="/auth" exact component={Auth} />
-        <Route path="/pokemon/:name" exact component={Pokemon} />
-        <Route path="/cart" exact component={Cart} />
-        <Route path="/wishlist" exact component={Wishlist} />
+        <Route path="/" exact component={Agendamento} />
+        {/* <Route path="/agendamento" exact component={Agendamento} /> */}
+        <Route path="/listagem" exact component={Listagem} />
       </Switch>
     </BrowserRouter>
   );
