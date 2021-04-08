@@ -1,12 +1,12 @@
 import React from "react";
-import DatePicker from "../FormAgendamento/DatePicker";
+import DatePicker from "./DatePicker";
 import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
 import "react-datepicker/dist/react-datepicker.css";
 import { Form } from "react-bootstrap";
 import { Formik, Field, ErrorMessage } from "formik";
 import { validationSchema } from "./yupSchema";
 
-const BasicForm = () => {
+const AgendamentoForm = () => {
   const valores = [1, 2, 3, 4, 5];
   return (
     <CONTAINER>
@@ -98,4 +98,4 @@ const BasicForm = () => {
   );
 };
 
-export default BasicForm;
+export default AgendamentoForm;
