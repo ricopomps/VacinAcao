@@ -1,5 +1,6 @@
 import React from "react";
 import NavBar from "./components/NavBar/NavBar";
+import Agendamento from "./Pages/Agendamento/Agendamento";
 import FormAgendamento from "./components/FormAgendamento/FormAgendamento";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
@@ -9,15 +10,7 @@ const App = () => {
   return (
     <div>
       <NavBar />
-      <Container>
-        <h1>VacinAcao</h1>
-        <Row>
-          <Col>1 of 2</Col>
-          <Col>
-            <FormAgendamento />
-          </Col>
-        </Row>
-      </Container>
+      <Agendamento />
     </div>
   );
 };
