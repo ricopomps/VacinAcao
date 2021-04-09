@@ -1,32 +1,46 @@
 import React from "react";
 import { Button } from "react-bootstrap";
-
-const Modal = ({ show, ...props }) => {
-  if (show) {
-    return (
-      <Modal
-        {...props}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-      >
-        <Modal.Header closeButton>
-          <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
-          </Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          <h4>Centered Modal</h4>
-          <input />
-        </Modal.Body>
-        <Modal.Footer>
-          <Button onClick={props.onHide}>Close</Button>
-        </Modal.Footer>
-      </Modal>
-    );
-  } else {
-    return <p>modal fechado</p>;
-  }
+import Modal from "react-bootstrap/Modal";
+import Form from "react-bootstrap/Form";
+const ModalComponent = (props) => {
+  return (
+    <Modal
+      {...props}
+      size="lg"
+      aria-labelledby="contained-modal-title-vcenter"
+      centered
+    >
+      <Modal.Header closeButton>
+        <Modal.Title id="contained-modal-title-vcenter">
+          Finalizar atendimento
+        </Modal.Title>
+      </Modal.Header>
+      <Modal.Body>
+        <Form>
+          <label htmlFor="description">
+            <h4>Paciente: {props.name}</h4>
+          </label>
+          <Form.Group controlId="description">
+            <Form.Control
+              value={props.description}
+              onChange={(e) => props.onChange}
+              name="email"
+              as="textarea"
+              rows={3}
+            />
+          </Form.Group>
+        </Form>
+      </Modal.Body>
+      <Modal.Footer>
+        <Button variant="success" onClick={props.onSubmit}>
+          Finalizar atendimento
+        </Button>
+        <Button variant="danger" onClick={props.onHide}>
+          Cancelar
+        </Button>
+      </Modal.Footer>
+    </Modal>
+  );
 };
 
-export default Modal;
+export default ModalComponent;

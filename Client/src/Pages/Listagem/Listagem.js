@@ -20,7 +20,7 @@ const Listagem = () => {
       </thead>
       <tbody>
         {agendamentos.map((agendamento, index) => (
-          <ListItem index={index} agendamento={agendamento} />
+          <ListItem key={index} index={index} agendamento={agendamento} />
         ))}
       </tbody>
     </Table>

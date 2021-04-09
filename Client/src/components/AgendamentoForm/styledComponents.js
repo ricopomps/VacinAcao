@@ -5,13 +5,14 @@ import { Form } from "formik";
 export const CONTAINER = styled.div`
   background: #f7f9fa;
   height: auto;
+
   width: 100%;
   color: snow;
   -webkit-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.4);
   -moz-box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.4);
   box-shadow: 5px 5px 5px 0px rgba(0, 0, 0, 0.4);
   @media (min-width: 786px) {
-    width: 75%;
+    width: 80%;
   }
   label {
     color: #24b9b6;
