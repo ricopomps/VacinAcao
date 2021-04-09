@@ -95,7 +95,7 @@ const AgendamentoForm = () => {
               )}
             </Form.Group>
             <BUTTON variant="primary" type="submit">
-              Submit
+              Agendar
             </BUTTON>
           </MYFORM>
         )}

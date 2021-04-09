@@ -1,5 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
+import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
   const n = 30;
   return (
@@ -19,14 +20,26 @@ const Calendar = () => {
         {[...Array(n)].map(() => (
           <tr>
             <td>
-              <button>Dom</button>
+              <CalendarDay />
             </td>
-            <td>Seg</td>
-            <td>Ter</td>
-            <td>Qua</td>
-            <td>Qui</td>
-            <td>Sex</td>
-            <td>Sab</td>
+            <td>
+              <CalendarDay />
+            </td>
+            <td>
+              <CalendarDay />
+            </td>
+            <td>
+              <CalendarDay />
+            </td>
+            <td>
+              <CalendarDay />
+            </td>
+            <td>
+              <CalendarDay />
+            </td>
+            <td>
+              <CalendarDay />
+            </td>
           </tr>
         ))}
       </tbody>

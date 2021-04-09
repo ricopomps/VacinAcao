@@ -9,7 +9,7 @@ const Listagem = () => {
   ];
 
   return (
-    <Table striped bordered hover>
+    <Table size="sm" striped bordered hover>
       <thead>
         <tr>
           <th>#</th>
