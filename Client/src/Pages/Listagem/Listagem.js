@@ -1,12 +1,13 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-
+import ListItem from "../../components/ListItem/ListItem";
 const Listagem = () => {
   const agendamentos = [
     { name: "Ricardo Pompilo", date: "Hoje" },
     { name: "Leonardo Pompilo", date: "amanha" },
     { name: "João Pedro Pompilo", date: "depois de amanhã" },
   ];
+
   return (
     <Table striped bordered hover>
       <thead>
@@ -19,12 +20,7 @@ const Listagem = () => {
       </thead>
       <tbody>
         {agendamentos.map((agendamento, index) => (
-          <tr>
-            <td>{index + 1}</td>
-            <td>{agendamento.name}</td>
-            <td>{agendamento.date}</td>
-            <td>SIM OU NÃO</td>
-          </tr>
+          <ListItem index={index} agendamento={agendamento} />
         ))}
       </tbody>
     </Table>

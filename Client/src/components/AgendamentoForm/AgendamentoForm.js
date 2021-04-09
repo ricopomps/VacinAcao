@@ -3,7 +3,8 @@ import DatePicker from "./DatePicker";
 import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
 import "react-datepicker/dist/react-datepicker.css";
 import { Form } from "react-bootstrap";
-import { Formik, Field, ErrorMessage } from "formik";
+import { Formik, Field } from "formik";
+
 import { validationSchema } from "./yupSchema";
 
 const AgendamentoForm = () => {
@@ -78,7 +79,12 @@ const AgendamentoForm = () => {
             </Form.Group>
             <Form.Group controlId="formSchedule">
               <label htmlFor="schedule">Horário:</label>
-              <Field id="schedule" name="schedule" list="schedules"></Field>
+              <Field
+                id="schedule"
+                autoComplete="off"
+                name="schedule"
+                list="schedules"
+              ></Field>
               <datalist id="schedules">
                 {valores.map((designation, index) => {
                   return <option key={index}>{`${designation}`}</option>;
