@@ -2,8 +2,8 @@ import mongoose from "mongoose";
 
 const agendamentoSchema = mongoose.Schema({
   name: String,
-  age: Date,
-  date: Date,
+  age: String,
+  date: String,
   schedule: String,
   realized: { type: Boolean, default: false },
 });

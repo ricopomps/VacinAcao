@@ -1,5 +1,6 @@
 import React from "react";
 import DatePicker from "./DatePicker";
+import moment from "moment";
 import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
 import "react-datepicker/dist/react-datepicker.css";
 import { Form } from "react-bootstrap";
@@ -9,6 +10,7 @@ import { validationSchema } from "./yupSchema";
 
 const AgendamentoForm = () => {
   const valores = [1, 2, 3, 4, 5];
+  const format = (value) => moment(value).format("L");
   return (
     <CONTAINER>
       <h1>Agendamento</h1>
@@ -22,8 +24,13 @@ const AgendamentoForm = () => {
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
-          console.log(values);
-          createAgendamento(values);
+          createAgendamento(
+            (values = {
+              ...values,
+              age: format(values.age),
+              date: format(values.date),
+            })
+          );
         }}
       >
         {({
