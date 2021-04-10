@@ -12,7 +12,7 @@ import { validationSchema } from "./yupSchema";
 const AgendamentoForm = () => {
   const [{}, dispatch] = useContext(AppContext);
   const valores = [1, 2, 3, 4, 5];
-  const format = (value) => moment(value).format("L");
+  const format = (value) => moment(value).format("DD/MM/yyyy");
   return (
     <CONTAINER>
       <h1>Agendamento</h1>
