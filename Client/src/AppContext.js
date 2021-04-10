@@ -13,7 +13,12 @@ const reducer = (state, action) => {
     case "SET_AGENDAMENTOS": {
       return {
         ...state,
-        agendamentos: action.payload,
+        agendamentos: action.payload.filter(
+          (agendamento) => agendamento.realized === false
+        ),
+        historico: action.payload.filter(
+          (agendamento) => agendamento.realized === true
+        ),
       };
     }
     case "CREATE": {
