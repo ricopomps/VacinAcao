@@ -44,14 +44,7 @@ const AgendamentoForm = () => {
             </Form.Group>
             <Form.Group controlId="formAge">
               <label htmlFor="age">Data de nascimento:</label>
-              <DatePicker
-                autoComplete="off"
-                showYearDropdown="true"
-                maxDate={new Date()}
-                type="date"
-                changeYear="true"
-                name="age"
-              />
+              <DatePicker maxDate={new Date()} name="age" />
               {touched.age && errors.age && (
                 <div className="error-message">{errors.age}</div>
               )}
@@ -65,14 +58,7 @@ const AgendamentoForm = () => {
             </Form.Group>
             <Form.Group controlId="formDate">
               <label>Data de agendamento :</label>
-              <DatePicker
-                autoComplete="off"
-                showYearDropdown="true"
-                minDate={new Date()}
-                changeYear="true"
-                type="date"
-                name="date"
-              />
+              <DatePicker minDate={new Date()} name="date" />
               {touched.date && errors.date && (
                 <div className="error-message">{errors.date}</div>
               )}

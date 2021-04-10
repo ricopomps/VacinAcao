@@ -9,7 +9,7 @@ const NavBar = () => {
   return (
     <Navbar bg="light" variant="light">
       <Navbar.Brand>
-        <IMAGE src={logo} responsive />
+        <IMAGE src={logo} />
         <b>VacinAcao</b>
         <Nav className="mr-auto">
           <Nav.Link as={Link} to="/">

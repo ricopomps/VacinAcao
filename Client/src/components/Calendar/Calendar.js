@@ -3,8 +3,9 @@ import Table from "react-bootstrap/Table";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
   const n = 30;
+  const w = 7;
   return (
-    <Table resposive striped bordered hover size="sm">
+    <Table striped bordered hover size="sm">
       <thead>
         <tr>
           <th>Dom</th>
@@ -18,28 +19,12 @@ const Calendar = () => {
       </thead>
       <tbody>
         {[...Array(n)].map(() => (
-          <tr>
-            <td>
-              <CalendarDay />
-            </td>
-            <td>
-              <CalendarDay />
-            </td>
-            <td>
-              <CalendarDay />
-            </td>
-            <td>
-              <CalendarDay />
-            </td>
-            <td>
-              <CalendarDay />
-            </td>
-            <td>
-              <CalendarDay />
-            </td>
-            <td>
-              <CalendarDay />
-            </td>
+          <tr key={Math.random()}>
+            {[...Array(w)].map(() => (
+              <td key={Math.random()}>
+                <CalendarDay />
+              </td>
+            ))}
           </tr>
         ))}
       </tbody>

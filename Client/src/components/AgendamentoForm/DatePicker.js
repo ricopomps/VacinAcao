@@ -18,6 +18,10 @@ function DatePicker(props) {
               id={name}
               {...field}
               {...rest}
+              type="date"
+              changeYear="true"
+              showYearDropdown="true"
+              autoComplete="off"
               dateFormat="dd/MM/yyyy"
               locale="pt"
               dateFormatCalendar={"MMM yyyy"}
