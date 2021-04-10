@@ -4,6 +4,7 @@ const AppContext = createContext();
 
 const initialState = {
   agendamentos: [],
+  historico: [],
   formState: "",
 };
 
@@ -15,6 +16,14 @@ const reducer = (state, action) => {
         agendamentos: action.payload,
       };
     }
+    case "FINALIZAR":
+      return {
+        ...state,
+        agendamentos: state.agendamentos.filter(
+          (post) => post._id !== action.payload
+        ),
+        historico: [...state.historico, action.payload],
+      };
     default: {
       return state;
     }
