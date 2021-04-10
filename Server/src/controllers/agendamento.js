@@ -21,3 +21,20 @@ export const createAgendamentos = async (req, res) => {
     res.status(404).json({ message: error.message });
   }
 };
+
+export const updateAgendamento = async (req, res) => {
+  const { id: _id } = req.params;
+  const agendamento = req.body;
+  if (!mongoose.Types.ObjectId.isValid(_id))
+    return res.status(404).send("Agendamento não encontrado");
+
+  const updatedAgendamento = await Agendamento.findByIdAndUpdate(
+    _id,
+    agendamento,
+    {
+      new: true,
+    }
+  );
+
+  res.json(updatedAgendamento);
+};
