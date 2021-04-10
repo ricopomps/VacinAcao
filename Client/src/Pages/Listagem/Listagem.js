@@ -1,13 +1,10 @@
-import React, { useEffect } from "react";
+import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
+import AppContext from "../../AppContext";
 
-import { fetchAgendamentos } from "../../api";
 const Listagem = () => {
-  let agendamentos = [];
-  useEffect(() => {
-    agendamentos = fetchAgendamentos();
-  }, []);
+  const [{ agendamentos }] = useContext(AppContext);
 
   return (
     <Table size="sm" striped bordered hover>
