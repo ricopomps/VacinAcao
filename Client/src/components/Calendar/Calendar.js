@@ -18,11 +18,11 @@ const Calendar = () => {
         </tr>
       </thead>
       <tbody>
-        {[...Array(n)].map(() => (
+        {[...Array(n)].map((map, indexn: index) => (
           <tr key={Math.random()}>
-            {[...Array(w)].map(() => (
+            {[...Array(w)].map((map, indexw: index) => (
               <td key={Math.random()}>
-                <CalendarDay />
+                <CalendarDay onClick={() => console.log(indexn, indexw)} />
               </td>
             ))}
           </tr>
