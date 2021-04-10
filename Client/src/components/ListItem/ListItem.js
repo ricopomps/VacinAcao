@@ -1,12 +1,25 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "../Modal/Modal";
+import AppContext from "../../AppContext";
 
+import { updateAgendamento } from "../../api";
 const ListItem = ({ index, agendamento }) => {
+  const [{}, dispatch] = useContext(AppContext);
   const [modalShow, setModalShow] = useState(false);
   const [description, setDescription] = useState("");
-  const onSubmit = () => {
+
+  const onSubmit = async () => {
     setModalShow(false);
+    const { data } = await updateAgendamento(
+      agendamento._id,
+      (agendamento = {
+        ...agendamento,
+        realized: true,
+        description: description,
+      })
+    );
+    dispatch({ type: "FINALIZAR", payload: data });
     setDescription("");
   };
   const onChange = (e) => {

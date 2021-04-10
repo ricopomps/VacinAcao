@@ -7,5 +7,6 @@ const API = axios.create({
 export const fetchAgendamentos = () => API.get("/agendamento");
 export const createAgendamento = (newAgendamento) =>
   API.post("/agendamento", newAgendamento);
-
+export const updateAgendamento = (id, updatedAgendamento) =>
+  API.patch(`/agendamento/${id}`, updatedAgendamento);
 export default API;

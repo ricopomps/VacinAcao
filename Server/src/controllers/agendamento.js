@@ -1,4 +1,6 @@
 import Agendamento from "../models/agendamento.js";
+import mongoose from "mongoose";
+
 export const getAgendamentos = async (req, res) => {
   try {
     const agendamento = await Agendamento.find();
@@ -25,16 +27,21 @@ export const createAgendamentos = async (req, res) => {
 export const updateAgendamento = async (req, res) => {
   const { id: _id } = req.params;
   const agendamento = req.body;
-  if (!mongoose.Types.ObjectId.isValid(_id))
-    return res.status(404).send("Agendamento não encontrado");
+  try {
+    if (!mongoose.Types.ObjectId.isValid(_id))
+      return res.status(404).send("Agendamento não encontrado");
 
-  const updatedAgendamento = await Agendamento.findByIdAndUpdate(
-    _id,
-    agendamento,
-    {
-      new: true,
-    }
-  );
+    const updatedAgendamento = await Agendamento.findByIdAndUpdate(
+      _id,
+      agendamento,
+      {
+        new: true,
+      }
+    );
 
-  res.json(updatedAgendamento);
+    res.status(200).json(updatedAgendamento);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({ message: error.message });
+  }
 };

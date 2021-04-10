@@ -10,6 +10,6 @@ const router = express.Router();
 
 router.get("/", getAgendamentos);
 router.post("/", createAgendamentos);
-router.patch("/", updateAgendamento);
+router.patch("/:id", updateAgendamento);
 
 export default router;

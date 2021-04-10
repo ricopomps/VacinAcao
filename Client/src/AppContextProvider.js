@@ -5,6 +5,7 @@ import axios from "./api";
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const { formState, historico: historicoState } = state;
 
   const fetchAgendamentos = async () => {
     const responseAgendamentos = await axios.get("/agendamento");
@@ -14,7 +15,7 @@ const AppContextProvider = ({ children }) => {
   useEffect(() => {
     fetchAgendamentos();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [state.formState]);
+  }, [formState, historicoState]);
 
   return (
     <AppContext.Provider value={[state, dispatch]}>
