@@ -24,6 +24,7 @@ const ListItem = ({ index, agendamento }) => {
         <td>{index + 1}</td>
         <td>{agendamento.name}</td>
         <td>{agendamento.date}</td>
+        <td>{agendamento.schedule}</td>
         <td>
           <Button variant="success" onClick={() => setModalShow(true)}>
             Realizado

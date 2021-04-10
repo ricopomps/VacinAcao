@@ -12,7 +12,8 @@ const Listagem = () => {
         <tr>
           <th>#</th>
           <th>Nome</th>
-          <th>Data</th>
+          <th>Dia</th>
+          <th>Horário</th>
           <th>Atendimento</th>
         </tr>
       </thead>
