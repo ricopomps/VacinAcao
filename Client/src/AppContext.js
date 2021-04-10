@@ -20,7 +20,7 @@ const reducer = (state, action) => {
       return {
         ...state,
         agendamentos: state.agendamentos.filter(
-          (post) => post._id !== action.payload
+          (agendamento) => agendamento._id !== action.payload
         ),
         historico: [...state.historico, action.payload],
       };
