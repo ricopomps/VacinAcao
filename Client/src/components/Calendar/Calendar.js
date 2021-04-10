@@ -22,7 +22,10 @@ const Calendar = () => {
           <tr key={Math.random()}>
             {[...Array(w)].map((map, indexw: index) => (
               <td key={Math.random()}>
-                <CalendarDay onClick={() => console.log(indexn, indexw)}>
+                <CalendarDay
+                  vacancy="success"
+                  onClick={() => console.log(indexn, indexw)}
+                >
                   9:00
                 </CalendarDay>
               </td>
