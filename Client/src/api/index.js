@@ -9,4 +9,5 @@ export const createAgendamento = (newAgendamento) =>
   API.post("/agendamento", newAgendamento);
 export const updateAgendamento = (id, updatedAgendamento) =>
   API.patch(`/agendamento/${id}`, updatedAgendamento);
+export const deleteAgendamento = (id) => API.delete(`/agendamento/${id}`);
 export default API;

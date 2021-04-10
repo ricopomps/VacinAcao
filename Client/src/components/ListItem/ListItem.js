@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Modal from "../Modal/Modal";
 import AppContext from "../../AppContext";
 
-import { updateAgendamento } from "../../api";
+import { updateAgendamento, deleteAgendamento } from "../../api";
 const ListItem = ({ index, agendamento }) => {
   const [{}, dispatch] = useContext(AppContext);
   const [modalShow, setModalShow] = useState(false);
@@ -25,6 +25,11 @@ const ListItem = ({ index, agendamento }) => {
   const onChange = (e) => {
     setDescription(e.target.value);
   };
+  const onDelete = () => {
+    deleteAgendamento(agendamento._id);
+    setModalShow(false);
+    dispatch({ type: "DELETE", payload: agendamento._id });
+  };
   const onHide = () => {
     setDescription("");
     setModalShow(false);
@@ -41,7 +46,9 @@ const ListItem = ({ index, agendamento }) => {
           <Button variant="success" onClick={() => setModalShow(true)}>
             Realizado
           </Button>{" "}
-          <Button variant="danger">Não Realizado</Button>
+          <Button variant="danger" onClick={onDelete}>
+            Não Realizado
+          </Button>
         </td>
       </tr>
 

@@ -27,6 +27,14 @@ const reducer = (state, action) => {
         formState: action.payload,
       };
     }
+    case "DELETE": {
+      return {
+        ...state,
+        agendamentos: state.agendamentos.filter(
+          (agendamento) => agendamento._id !== action.payload
+        ),
+      };
+    }
     case "FINALIZAR":
       return {
         ...state,
