@@ -1,11 +1,8 @@
-import React, { useContext } from "react";
+import React from "react";
 import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
-import AppContext from "../../AppContext";
 
-const Listagem = () => {
-  const [{ agendamentos }] = useContext(AppContext);
-
+const Listagem = ({ agendamentos }) => {
   return (
     <Table size="sm" striped bordered hover>
       <thead>

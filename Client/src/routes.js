@@ -3,7 +3,8 @@ import { BrowserRouter, Switch, Route } from "react-router-dom";
 import NavBar from "./components/NavBar/NavBar";
 
 import Agendamento from "./pages/Agendamento/Agendamento";
-import Listagem from "./pages/Listagem/Listagem";
+import ListPageAgendamentos from "./pages/ListPage/ListPageAgendamentos";
+import ListPageHistorico from "./pages/ListPage/ListPageHistorico";
 
 const Routes = () => {
   return (
@@ -11,8 +12,8 @@ const Routes = () => {
       <NavBar />
       <Switch>
         <Route path="/" exact component={Agendamento} />
-        {/* <Route path="/agendamento" exact component={Agendamento} /> */}
-        <Route path="/listagem" exact component={Listagem} />
+        <Route path="/listagem" exact component={ListPageAgendamentos} />
+        <Route path="/historico" exact component={ListPageHistorico} />
       </Switch>
     </BrowserRouter>
   );

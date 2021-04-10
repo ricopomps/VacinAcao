@@ -18,6 +18,9 @@ const NavBar = () => {
           <Nav.Link as={Link} to="/listagem">
             Listagem
           </Nav.Link>
+          <Nav.Link as={Link} to="/historico">
+            Histórico
+          </Nav.Link>
         </Nav>
       </Navbar.Brand>
     </Navbar>
