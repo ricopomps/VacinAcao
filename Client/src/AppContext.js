@@ -16,6 +16,12 @@ const reducer = (state, action) => {
         agendamentos: action.payload,
       };
     }
+    case "CREATE": {
+      return {
+        ...state,
+        formState: action.payload,
+      };
+    }
     case "FINALIZAR":
       return {
         ...state,

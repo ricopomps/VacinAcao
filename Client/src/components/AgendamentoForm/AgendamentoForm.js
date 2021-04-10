@@ -1,14 +1,16 @@
-import React from "react";
+import React, { useContext } from "react";
 import DatePicker from "./DatePicker";
 import moment from "moment";
 import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
 import "react-datepicker/dist/react-datepicker.css";
 import { Form } from "react-bootstrap";
 import { Formik, Field } from "formik";
+import AppContext from "../../AppContext";
 import { createAgendamento } from "../../api";
 import { validationSchema } from "./yupSchema";
 
 const AgendamentoForm = () => {
+  const [{}, dispatch] = useContext(AppContext);
   const valores = [1, 2, 3, 4, 5];
   const format = (value) => moment(value).format("L");
   return (
@@ -23,14 +25,15 @@ const AgendamentoForm = () => {
           date: "",
         }}
         validationSchema={validationSchema}
-        onSubmit={(values, { setSubmitting, resetForm }) => {
-          createAgendamento(
+        onSubmit={async (values, { setSubmitting, resetForm }) => {
+          const { data } = await createAgendamento(
             (values = {
               ...values,
               age: format(values.age),
               date: format(values.date),
             })
           );
+          dispatch({ type: "CREATE", payload: data });
         }}
       >
         {({

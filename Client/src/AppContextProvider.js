@@ -13,9 +13,8 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchAgendamentos();
-
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [state.formState]);
 
   return (
     <AppContext.Provider value={[state, dispatch]}>
