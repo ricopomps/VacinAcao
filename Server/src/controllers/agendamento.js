@@ -1,7 +1,5 @@
 import Agendamento from "../models/agendamento.js";
 export const getAgendamentos = async (req, res) => {
-  console.log("get");
-
   try {
     const agendamento = await Agendamento.find();
     res.status(200).json(agendamento);

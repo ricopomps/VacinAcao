@@ -8,7 +8,6 @@ const AppContextProvider = ({ children }) => {
 
   const fetchAgendamentos = async () => {
     const responseAgendamentos = await axios.get("/agendamento");
-    console.log(responseAgendamentos);
     dispatch({ type: "SET_AGENDAMENTOS", payload: responseAgendamentos.data });
   };
 

@@ -6,7 +6,6 @@ const ListItem = ({ index, agendamento }) => {
   const [modalShow, setModalShow] = useState(false);
   const [description, setDescription] = useState("");
   const onSubmit = () => {
-    console.log(description);
     setModalShow(false);
     setDescription("");
   };
