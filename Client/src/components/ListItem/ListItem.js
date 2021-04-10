@@ -4,7 +4,7 @@ import Modal from "../Modal/Modal";
 import AppContext from "../../AppContext";
 
 import { updateAgendamento, deleteAgendamento } from "../../api";
-const ListItem = ({ index, agendamento }) => {
+const ListItem = ({ index, agendamento, isHistorico }) => {
   const [{}, dispatch] = useContext(AppContext);
   const [modalShow, setModalShow] = useState(false);
   const [description, setDescription] = useState("");
@@ -43,11 +43,15 @@ const ListItem = ({ index, agendamento }) => {
         <td>{agendamento.date}</td>
         <td>{agendamento.schedule}</td>
         <td>
-          <Button variant="success" onClick={() => setModalShow(true)}>
-            Realizado
-          </Button>{" "}
+          {isHistorico ? (
+            ""
+          ) : (
+            <Button variant="success" onClick={() => setModalShow(true)}>
+              Realizado
+            </Button>
+          )}{" "}
           <Button variant="danger" onClick={onDelete}>
-            Não Realizado
+            {isHistorico ? "Deletar do Historico" : "Não Realizado"}
           </Button>
         </td>
       </tr>

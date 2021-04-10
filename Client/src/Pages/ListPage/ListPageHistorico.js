@@ -4,7 +4,7 @@ import AppContext from "../../AppContext";
 const ListPage = () => {
   const [{ historico }] = useContext(AppContext);
 
-  return <Listagem agendamentos={historico} />;
+  return <Listagem agendamentos={historico} isHistorico="true" />;
 };
 
 export default ListPage;

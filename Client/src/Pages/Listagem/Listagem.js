@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
 
-const Listagem = ({ agendamentos }) => {
+const Listagem = ({ agendamentos, isHistorico }) => {
   return (
     <Table size="sm" striped bordered hover>
       <thead>
@@ -16,7 +16,12 @@ const Listagem = ({ agendamentos }) => {
       </thead>
       <tbody>
         {agendamentos.map((agendamento, index) => (
-          <ListItem key={index} index={index} agendamento={agendamento} />
+          <ListItem
+            key={index}
+            index={index}
+            isHistorico={isHistorico}
+            agendamento={agendamento}
+          />
         ))}
       </tbody>
     </Table>
