@@ -1,9 +1,9 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
-const CalendarDay = ({ onClick }) => {
+const CalendarDay = ({ onClick, children }) => {
   return (
     <Button variant="success" onClick={onClick}>
-      09:00
+      {children}
     </Button>
   );
 };

@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
 const agendamentoSchema = mongoose.Schema({
-  paciente: String,
-  idade: Number,
-  data: Date,
+  name: String,
+  age: Date,
+  date: Date,
+  schedule: String,
+  realized: { type: Boolean, default: false },
 });
 
 const Agendamento = mongoose.model("Agendamento", agendamentoSchema);

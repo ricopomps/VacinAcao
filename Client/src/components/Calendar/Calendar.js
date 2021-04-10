@@ -2,7 +2,7 @@ import React from "react";
 import Table from "react-bootstrap/Table";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
-  const n = 30;
+  const n = 48;
   const w = 7;
   return (
     <Table striped bordered hover size="sm">
@@ -22,7 +22,9 @@ const Calendar = () => {
           <tr key={Math.random()}>
             {[...Array(w)].map((map, indexw: index) => (
               <td key={Math.random()}>
-                <CalendarDay onClick={() => console.log(indexn, indexw)} />
+                <CalendarDay onClick={() => console.log(indexn, indexw)}>
+                  9:00
+                </CalendarDay>
               </td>
             ))}
           </tr>

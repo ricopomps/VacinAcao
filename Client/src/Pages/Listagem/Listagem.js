@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
+
+import { fetchAgendamentos } from "../../api";
 const Listagem = () => {
-  const agendamentos = [
-    { name: "Ricardo Pompilo", date: "Hoje" },
-    { name: "Leonardo Pompilo", date: "amanha" },
-    { name: "João Pedro Pompilo", date: "depois de amanhã" },
-  ];
+  let agendamentos = [];
+  useEffect(() => {
+    agendamentos = fetchAgendamentos();
+  }, []);
 
   return (
     <Table size="sm" striped bordered hover>

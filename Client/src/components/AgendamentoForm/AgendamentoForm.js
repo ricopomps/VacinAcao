@@ -4,7 +4,7 @@ import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
 import "react-datepicker/dist/react-datepicker.css";
 import { Form } from "react-bootstrap";
 import { Formik, Field } from "formik";
-
+import { createAgendamento } from "../../api";
 import { validationSchema } from "./yupSchema";
 
 const AgendamentoForm = () => {
@@ -16,13 +16,14 @@ const AgendamentoForm = () => {
         initialValues={{
           name: "",
           age: "",
-          email: "",
+          // email: "",
           schedule: "",
           date: "",
         }}
         validationSchema={validationSchema}
         onSubmit={(values, { setSubmitting, resetForm }) => {
           console.log(values);
+          createAgendamento(values);
         }}
       >
         {({
@@ -49,13 +50,13 @@ const AgendamentoForm = () => {
                 <div className="error-message">{errors.age}</div>
               )}
             </Form.Group>
-            <Form.Group controlId="formEmail">
+            {/* <Form.Group controlId="formEmail">
               <Form.Label>Email :</Form.Label>
               <Field id="email" name="email" type="email"></Field>
               {touched.email && errors.email && (
                 <div className="error-message">{errors.email}</div>
               )}
-            </Form.Group>
+            </Form.Group> */}
             <Form.Group controlId="formDate">
               <label>Data de agendamento :</label>
               <DatePicker minDate={new Date()} name="date" />
