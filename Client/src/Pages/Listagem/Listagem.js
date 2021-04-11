@@ -9,6 +9,7 @@ const Listagem = ({ agendamentos, isHistorico }) => {
         <tr>
           <th>#</th>
           <th>Nome</th>
+          <th>Data de nascimento</th>
           <th>Dia</th>
           <th>Horário</th>
           {isHistorico ? <th>Descrição do atendimento</th> : null}

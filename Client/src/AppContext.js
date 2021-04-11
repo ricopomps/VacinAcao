@@ -1,5 +1,4 @@
 import { createContext } from "react";
-
 const AppContext = createContext();
 
 const initialState = {
@@ -7,12 +6,12 @@ const initialState = {
   historico: [],
   formState: "",
 };
-
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_AGENDAMENTOS": {
       return {
         ...state,
+        formState: "",
         agendamentos: action.payload.filter(
           (agendamento) => agendamento.realized === false
         ),
@@ -30,7 +29,11 @@ const reducer = (state, action) => {
     case "DELETE": {
       return {
         ...state,
+        formState: "",
         agendamentos: state.agendamentos.filter(
+          (agendamento) => agendamento._id !== action.payload
+        ),
+        historico: state.historico.filter(
           (agendamento) => agendamento._id !== action.payload
         ),
       };
@@ -38,8 +41,9 @@ const reducer = (state, action) => {
     case "FINALIZAR":
       return {
         ...state,
+        formState: "",
         agendamentos: state.agendamentos.filter(
-          (agendamento) => agendamento._id !== action.payload
+          (agendamento) => agendamento._id !== action.payload._id
         ),
         historico: [...state.historico, action.payload],
       };

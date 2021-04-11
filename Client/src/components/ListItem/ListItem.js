@@ -40,6 +40,7 @@ const ListItem = ({ index, agendamento, isHistorico }) => {
       <tr>
         <td>{index + 1}</td>
         <td>{agendamento.name}</td>
+        <td>{agendamento.age}</td>
         <td>{agendamento.date}</td>
         <td>{agendamento.schedule}</td>
         {isHistorico ? (
