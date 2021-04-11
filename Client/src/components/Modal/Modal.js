@@ -26,6 +26,7 @@ const ModalComponent = (props) => {
               onChange={(e) => props.onChange}
               name="email"
               as="textarea"
+              maxLength={150}
               rows={3}
             />
           </Form.Group>

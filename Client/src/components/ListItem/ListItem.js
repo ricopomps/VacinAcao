@@ -42,6 +42,15 @@ const ListItem = ({ index, agendamento, isHistorico }) => {
         <td>{agendamento.name}</td>
         <td>{agendamento.date}</td>
         <td>{agendamento.schedule}</td>
+        {isHistorico ? (
+          <td>
+            {agendamento?.description
+              ? agendamento?.description
+              : "Sem descrição disponível"}
+          </td>
+        ) : (
+          ""
+        )}
         <td>
           {isHistorico ? (
             ""

@@ -11,6 +11,7 @@ const Listagem = ({ agendamentos, isHistorico }) => {
           <th>Nome</th>
           <th>Dia</th>
           <th>Horário</th>
+          {isHistorico ? <th>Descrição do atendimento</th> : ""}
           <th>Atendimento</th>
         </tr>
       </thead>
