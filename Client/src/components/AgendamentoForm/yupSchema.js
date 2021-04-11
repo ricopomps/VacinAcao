@@ -10,5 +10,5 @@ export const validationSchema = Yup.object().shape({
   //   .required("*Email obrigatório"),
   age: Yup.date().required("*Idade obrigatória").nullable(),
   date: Yup.date().required("*Data de agendamento obrigatória").nullable(),
-  schedule: Yup.date().required("*Horário obrigatório"),
+  schedule: Yup.string().required("*Horário obrigatório"),
 });

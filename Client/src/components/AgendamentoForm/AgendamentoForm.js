@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import DatePicker from "./DatePicker";
 import moment from "moment";
+import { prepareIntervals } from "../../utils/prepareIntervals";
 import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
 import "react-datepicker/dist/react-datepicker.css";
 import { Form } from "react-bootstrap";
@@ -84,8 +85,8 @@ const AgendamentoForm = () => {
                 list="schedules"
               ></Field>
               <datalist id="schedules">
-                {valores.map((designation, index) => {
-                  return <option key={index}>{`${designation}`}</option>;
+                {prepareIntervals().map((schedule, index) => {
+                  return <option key={index}>{schedule}</option>;
                 })}
               </datalist>
               {touched.schedule && errors.schedule && (
