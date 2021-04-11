@@ -1,43 +1,8 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-import moment from "moment";
+import { prepareIntervals } from "../../utils/prepareIntervals";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
-  let value = {
-    interval: "00:30:00",
-    startTime: "08:30:00",
-    endTime: "18:00:00",
-  };
-
-  let inputDataFormat = "HH:mm:ss";
-  let outputFormat = "HH:mm";
-
-  let tmp = moment(value.interval, inputDataFormat);
-  let dif = tmp - moment().startOf("day");
-
-  let startIntervalTime = moment(value.startTime, inputDataFormat).add(
-    -dif,
-    "ms"
-  );
-  let endIntervalTime = moment(value.startTime, inputDataFormat);
-  let finishTime = moment(value.endTime, inputDataFormat);
-
-  function prepareIntervals() {
-    let intervals = [];
-
-    while (startIntervalTime < finishTime) {
-      let format =
-        startIntervalTime.format(outputFormat) +
-        " - " +
-        endIntervalTime.format(outputFormat);
-      intervals.push(format);
-      startIntervalTime.add(dif, "ms");
-      endIntervalTime.add(dif, "ms");
-    }
-
-    return intervals;
-  }
-
   const diasDaSemana = [
     "Domingo",
     "Segunda",
@@ -51,8 +16,8 @@ const Calendar = () => {
     <Table striped bordered hover size="sm">
       <thead>
         <tr>
-          {diasDaSemana.map((dia) => (
-            <th>{dia}</th>
+          {diasDaSemana.map((dia, index) => (
+            <th key={index}>{dia}</th>
           ))}
         </tr>
       </thead>
