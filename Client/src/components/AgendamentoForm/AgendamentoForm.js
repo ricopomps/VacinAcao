@@ -78,17 +78,24 @@ const AgendamentoForm = () => {
             </Form.Group>
             <Form.Group controlId="formSchedule">
               <label htmlFor="schedule">Horário:</label>
+              <br />
               <Field
+                as="select"
                 id="schedule"
-                autoComplete="off"
                 name="schedule"
-                list="schedules"
-              ></Field>
-              <datalist id="schedules">
-                {prepareIntervals().map((schedule, index) => {
-                  return <option key={index}>{schedule}</option>;
+                autoComplete="off"
+              >
+                <option value="" key="Selecione um horário">
+                  Selecione um horário
+                </option>
+                {prepareIntervals().map((schedule) => {
+                  return (
+                    <option key={schedule} value={schedule}>
+                      {schedule}
+                    </option>
+                  );
                 })}
-              </datalist>
+              </Field>
               {touched.schedule && errors.schedule && (
                 <div className="error-message">{errors.schedule}</div>
               )}
