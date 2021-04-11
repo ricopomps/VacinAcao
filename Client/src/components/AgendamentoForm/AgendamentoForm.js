@@ -34,6 +34,7 @@ const AgendamentoForm = () => {
             })
           );
           dispatch({ type: "CREATE", payload: data });
+          resetForm();
         }}
       >
         {({
