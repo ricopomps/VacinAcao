@@ -51,13 +51,9 @@ const Calendar = () => {
     <Table striped bordered hover size="sm">
       <thead>
         <tr>
-          <th>Dom</th>
-          <th>Seg</th>
-          <th>Ter</th>
-          <th>Qua</th>
-          <th>Qui</th>
-          <th>Sex</th>
-          <th>Sab</th>
+          {diasDaSemana.map((dia) => (
+            <th>{dia}</th>
+          ))}
         </tr>
       </thead>
       <tbody>
