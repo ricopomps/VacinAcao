@@ -1,4 +1,5 @@
 import Agendamento from "../models/agendamento.js";
+import Dia from "../models/dia.js";
 import mongoose from "mongoose";
 
 export const getAgendamentos = async (req, res) => {
@@ -15,9 +16,34 @@ export const getAgendamentos = async (req, res) => {
 export const createAgendamentos = async (req, res) => {
   const agendamento = req.body;
   const newAgendamento = new Agendamento(agendamento);
+  // console.log(agendamento);
+  // console.log(newAgendamento);
+  const newDay = new Dia({
+    date: newAgendamento.date,
+    // $push: {
+    schedules: {
+      schedule: newAgendamento.schedule,
+      pacientId: newAgendamento._id,
+      pacientAge: newAgendamento.age,
+    },
+    // },
+  });
+  // console.log(newDay);
   try {
     await newAgendamento.save();
-    res.status(201).json(agendamento);
+    Dia.findOneAndUpdate(
+      { date: newDay.date },
+      { date: newDay.date, $push: { schedules: newDay.schedules } },
+      { new: true, upsert: true },
+      (error, data) => {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log(data);
+        }
+      }
+    );
+    await res.status(201).json(agendamento);
   } catch (error) {
     console.log(error);
     res.status(404).json({ message: error.message });
