@@ -1,23 +1,38 @@
 import React from "react";
 import Button from "react-bootstrap/Button";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
 
 const Legenda = () => {
   return (
-    <div>
-      <p>Legenda:</p>
-      <Button variant="success">LIVRE</Button>
-      <br />
-      <br />
-      <Button variant="warning">UMA VAGA</Button>
-      <br />
-      <br />
-      <Button variant="primary">APENAS IDOSO</Button>
-      <br />
-      <br />
-      <Button disabled variant="danger">
-        SEM VAGAS
-      </Button>
-    </div>
+    <Container>
+      <Container>
+        <b>Legenda:</b>
+      </Container>
+      <Row>
+        <Col xs={5}>
+          <Button variant="success" block>
+            LIVRE
+          </Button>
+          <br />
+          <br />
+          <Button variant="warning" block>
+            UMA VAGA
+          </Button>
+        </Col>
+        <Col>
+          <Button variant="primary" block>
+            APENAS IDOSO
+          </Button>
+          <br />
+          <br />
+          <Button disabled variant="danger" block>
+            SEM VAGAS
+          </Button>
+        </Col>
+      </Row>
+    </Container>
   );
 };
 

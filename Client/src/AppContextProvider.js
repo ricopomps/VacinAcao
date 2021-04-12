@@ -5,7 +5,7 @@ import { fetchAgendamentos, getDay } from "./api";
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { formState, historico: historicoState } = state;
+  const { formState } = state;
 
   const fetchData = async () => {
     const responseAgendamentos = await fetchAgendamentos();
