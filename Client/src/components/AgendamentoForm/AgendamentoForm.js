@@ -9,6 +9,7 @@ import { Formik, Field } from "formik";
 import AppContext from "../../AppContext";
 import { createAgendamento } from "../../api";
 import { validationSchema } from "./yupSchema";
+import { toast } from "react-toastify";
 
 const AgendamentoForm = () => {
   const [{}, dispatch] = useContext(AppContext);
@@ -35,7 +36,7 @@ const AgendamentoForm = () => {
             })
           );
           if (data?.message) {
-            alert(data.message);
+            toast.error(data.message);
           } else {
             dispatch({ type: "CREATE", payload: data });
             resetForm();
