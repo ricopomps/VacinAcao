@@ -1,6 +1,6 @@
 import React from "react";
 import Table from "react-bootstrap/Table";
-
+import moment from "moment";
 import { prepareIntervals } from "../../utils/prepareIntervals";
 import { PrepareValidSchedules } from "../../utils/prepareValidSchedules";
 import { getCurrentWeek } from "../../utils/getCurrentWeek";
@@ -9,7 +9,21 @@ const Calendar = () => {
   const days = PrepareValidSchedules();
   const check = (interval, day) => {
     if (day.schedules.find((schedule) => schedule.schedule === interval)) {
-      return "danger";
+      const schedules = day.schedules.filter(
+        (schedule) => schedule.schedule === interval
+      );
+      if (schedules.length > 1) {
+        const veio = schedules.filter(
+          (schedule) =>
+            moment().diff(moment(schedule.pacientAge, "DD/MM/yyyy"), "years") >
+            60
+        );
+        if (veio.length > 1) {
+          return "danger";
+        }
+        return "primary";
+      }
+      return "warning";
     } else {
       return "success";
     }
