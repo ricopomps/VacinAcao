@@ -1,22 +1,26 @@
 import React, { useEffect, useReducer } from "react";
 
 import AppContext, { reducer, initialState } from "./AppContext";
-import axios from "./api";
+import { fetchAgendamentos, getDay } from "./api";
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { formState, historico: historicoState } = state;
 
-  const fetchAgendamentos = async () => {
-    const responseAgendamentos = await axios.get("/agendamento");
-    dispatch({ type: "SET_AGENDAMENTOS", payload: responseAgendamentos.data });
+  const fetchData = async () => {
+    const responseAgendamentos = await fetchAgendamentos();
+    const days = await getDay();
+    dispatch({
+      type: "SET_AGENDAMENTOS",
+      payload: { agendamentos: responseAgendamentos.data, dias: days.data },
+    });
   };
 
   useEffect(() => {
-    fetchAgendamentos();
+    fetchData();
   }, []);
   useEffect(() => {
-    fetchAgendamentos();
+    fetchData();
   }, [formState]);
 
   return (

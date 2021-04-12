@@ -5,6 +5,7 @@ const API = axios.create({
   baseURL: baseUrl,
 });
 export const fetchAgendamentos = () => API.get("/agendamento");
+export const getDay = () => API.get("/dia");
 export const createAgendamento = (newAgendamento) =>
   API.post("/agendamento", newAgendamento);
 export const updateAgendamento = (id, updatedAgendamento) =>

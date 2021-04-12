@@ -4,6 +4,7 @@ const AppContext = createContext();
 const initialState = {
   agendamentos: [],
   historico: [],
+  days: [],
   formState: "",
 };
 const reducer = (state, action) => {
@@ -12,12 +13,13 @@ const reducer = (state, action) => {
       return {
         ...state,
         formState: "",
-        agendamentos: action.payload.filter(
+        agendamentos: action.payload.agendamentos.filter(
           (agendamento) => agendamento.realized === false
         ),
-        historico: action.payload.filter(
+        historico: action.payload.agendamentos.filter(
           (agendamento) => agendamento.realized === true
         ),
+        days: action.payload.dias,
       };
     }
     case "CREATE": {
