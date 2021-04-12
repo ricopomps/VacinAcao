@@ -34,8 +34,12 @@ const AgendamentoForm = () => {
               date: format(values.date),
             })
           );
-          dispatch({ type: "CREATE", payload: data });
-          resetForm();
+          if (data?.message) {
+            alert(data.message);
+          } else {
+            dispatch({ type: "CREATE", payload: data });
+            resetForm();
+          }
         }}
       >
         {({

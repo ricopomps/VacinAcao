@@ -17,66 +17,62 @@ export const getAgendamentos = async (req, res) => {
 export const createAgendamentos = async (req, res) => {
   const agendamento = req.body;
   const newAgendamento = new Agendamento(agendamento);
-  const dia = await Dia.findOne({ date: newAgendamento.date });
-  if (dia.schedules ? dia.schedules.length > 19 : false) {
-    res.status(400).json({ message: "Não há mais vagas para esse dia" });
-  }
-  console.log(dia);
-  console.log(dia.date);
-  console.log(dia.schedules);
-  if (dia.schedules) {
-    console.log("AChou do dia");
-    if (
-      dia.schedules.find(
-        (schedule) => schedule.schedule === newAgendamento.schedule
-      )
-    ) {
-      console.log("AChou o schedule");
-
-      const schedules = dia.schedules.filter(
-        (schedule) => schedule.schedule === newAgendamento.schedule
-      );
-      if (schedules.length > 1) {
-        console.log("mais de 1 schedule");
-
-        const age = moment().diff(
-          moment(newAgendamento.age, "DD/MM/yyyy"),
-          "years"
+  try {
+    const dia = await Dia.findOne({ date: newAgendamento.date });
+    if (dia.schedules ? dia.schedules.length > 19 : false) {
+      res.json({ message: "Não há mais vagas para esse dia" });
+    }
+    if (dia.schedules) {
+      if (
+        dia.schedules.find(
+          (schedule) => schedule.schedule === newAgendamento.schedule
+        )
+      ) {
+        const schedules = dia.schedules.filter(
+          (schedule) => schedule.schedule === newAgendamento.schedule
         );
+        if (schedules.length > 1) {
+          const age = moment().diff(
+            moment(newAgendamento.age, "DD/MM/yyyy"),
+            "years"
+          );
 
-        const idosos = schedules.filter((schedule) => age > 60);
-        if (idosos.length > 1) {
-          console.log("1");
-
-          res.status(400).json({ message: "Não há mais vagas para esse dia" });
-          return;
-        }
-        if (age > 60) {
-          const schedulesOrdenado = dia.schedules.sort((a, b) => (a, b) => {
-            moment(moment(a.age, "DD/MM/yyyy")).diff(
-              moment(b.age, "DD/MM/yyyy")
-            );
-          });
-          await Agendamento.findByIdAndRemove(schedulesOrdenado[0].pacientId);
-        } else {
-          console.log("2");
-          res
-            .status(400)
-            .json({ message: "Vaga exclusiva para pessoas acimas de 60 anos" });
-          return;
+          const idosos = schedules.filter(
+            (schedule) =>
+              moment().diff(
+                moment(schedule.pacientAge, "DD/MM/yyyy"),
+                "years"
+              ) > 60
+          );
+          if (idosos.length > 1) {
+            res.json({ message: "Não há mais vagas para esse horário" });
+            return;
+          }
+          if (age > 60) {
+            const schedulesOrdenado = dia.schedules.sort((a, b) => (a, b) => {
+              moment(moment(a.age, "DD/MM/yyyy")).diff(
+                moment(b.age, "DD/MM/yyyy")
+              );
+            });
+            await Agendamento.findByIdAndRemove(schedulesOrdenado[0].pacientId);
+          } else {
+            res.json({
+              message: "Vaga exclusiva para pessoas acimas de 60 anos",
+            });
+            return;
+          }
         }
       }
     }
-  }
-  const newDay = new Dia({
-    date: newAgendamento.date,
-    schedules: {
-      schedule: newAgendamento.schedule,
-      pacientId: newAgendamento._id,
-      pacientAge: newAgendamento.age,
-    },
-  });
-  try {
+    const newDay = new Dia({
+      date: newAgendamento.date,
+      schedules: {
+        schedule: newAgendamento.schedule,
+        pacientId: newAgendamento._id,
+        pacientAge: newAgendamento.age,
+      },
+    });
+
     await newAgendamento.save();
     Dia.findOneAndUpdate(
       { date: newDay.date },
