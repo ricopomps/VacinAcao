@@ -40,6 +40,7 @@ const AgendamentoForm = () => {
           } else {
             dispatch({ type: "CREATE", payload: data });
             resetForm();
+            toast.success("Agendamento marcado com sucesso!");
           }
         }}
       >

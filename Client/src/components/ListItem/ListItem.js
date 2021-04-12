@@ -2,8 +2,9 @@ import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "../Modal/Modal";
 import AppContext from "../../AppContext";
-
+import { toast } from "react-toastify";
 import { updateAgendamento, deleteAgendamento } from "../../api";
+
 const ListItem = ({ index, agendamento, isHistorico }) => {
   const [{}, dispatch] = useContext(AppContext);
   const [modalShow, setModalShow] = useState(false);
@@ -21,6 +22,7 @@ const ListItem = ({ index, agendamento, isHistorico }) => {
     );
     dispatch({ type: "FINALIZAR", payload: data });
     setDescription("");
+    toast.success("Atendimento finalizado");
   };
   const onChange = (e) => {
     setDescription(e.target.value);
@@ -29,6 +31,7 @@ const ListItem = ({ index, agendamento, isHistorico }) => {
     deleteAgendamento(agendamento._id);
     setModalShow(false);
     dispatch({ type: "DELETE", payload: agendamento._id });
+    toast.error("Atendimento deletado");
   };
   const onHide = () => {
     setDescription("");
