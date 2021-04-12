@@ -16,19 +16,14 @@ export const getAgendamentos = async (req, res) => {
 export const createAgendamentos = async (req, res) => {
   const agendamento = req.body;
   const newAgendamento = new Agendamento(agendamento);
-  // console.log(agendamento);
-  // console.log(newAgendamento);
   const newDay = new Dia({
     date: newAgendamento.date,
-    // $push: {
     schedules: {
       schedule: newAgendamento.schedule,
       pacientId: newAgendamento._id,
       pacientAge: newAgendamento.age,
     },
-    // },
   });
-  // console.log(newDay);
   try {
     await newAgendamento.save();
     Dia.findOneAndUpdate(
