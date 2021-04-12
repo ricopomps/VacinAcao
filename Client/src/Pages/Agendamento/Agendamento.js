@@ -2,6 +2,7 @@ import React from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import AgendamentoForm from "../../components/AgendamentoForm/AgendamentoForm";
+import Legenda from "../../components/Legenda/Legenda";
 import Calendar from "../../components/Calendar/Calendar";
 import { TABLE_SCROLL } from "../../components/Calendar/styles";
 import Col from "react-bootstrap/Col";
@@ -15,6 +16,7 @@ const Agendamento = () => {
         </TABLE_SCROLL>
         <Col xs={4}>
           <AgendamentoForm />
+          <Legenda />
         </Col>
       </Row>
     </Container>
