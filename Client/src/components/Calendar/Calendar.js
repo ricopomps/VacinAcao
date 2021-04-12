@@ -8,6 +8,9 @@ import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
   const days = PrepareValidSchedules();
   const check = (interval, day) => {
+    if (day.schedules.length > 19) {
+      return "danger";
+    }
     if (day.schedules.find((schedule) => schedule.schedule === interval)) {
       const schedules = day.schedules.filter(
         (schedule) => schedule.schedule === interval
@@ -44,6 +47,7 @@ const Calendar = () => {
               <td key={Math.random()}>
                 <CalendarDay
                   vacancy={check(interval, day)}
+                  disabled={day.schedules.length > 19}
                   onClick={() => console.log(day, interval)}
                 >
                   {interval}
