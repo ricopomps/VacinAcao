@@ -52,9 +52,7 @@ const ListItem = ({ index, agendamento, isHistorico }) => {
               ? agendamento?.description
               : "Sem descrição disponível"}
           </td>
-        ) : (
-          ""
-        )}
+        ) : null}
         <td>
           {isHistorico ? null : (
             <Button variant="success" onClick={() => setModalShow(true)}>

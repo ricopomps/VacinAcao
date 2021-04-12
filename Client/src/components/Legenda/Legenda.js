@@ -14,7 +14,9 @@ const Legenda = () => {
       <Button variant="primary">APENAS IDOSO</Button>
       <br />
       <br />
-      <Button variant="danger">SEM VAGAS</Button>
+      <Button disabled variant="danger">
+        SEM VAGAS
+      </Button>
     </div>
   );
 };
