@@ -5,7 +5,7 @@ import AppContext from "../../AppContext";
 import { prepareIntervals } from "../../utils/prepareIntervals";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
-  const [{ week }] = useContext(AppContext);
+  const [{ week }, dispatch] = useContext(AppContext);
   const diasDaSemana = [
     "Domingo",
     "Segunda",
@@ -88,7 +88,15 @@ const Calendar = () => {
                   vacancy={check(interval, day)}
                   tooltip={getTooltip(check(interval, day))}
                   disabled={check(interval, day) === "danger"}
-                  onClick={() => console.log(day, interval)}
+                  onClick={() => {
+                    dispatch({
+                      type: "SET_FORM",
+                      payload: {
+                        schedule: interval,
+                        date: moment(day.day, "DD/MM/YYYY").toDate(),
+                      },
+                    });
+                  }}
                 >
                   {interval}
                 </CalendarDay>

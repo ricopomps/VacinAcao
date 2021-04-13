@@ -12,19 +12,15 @@ import { validationSchema } from "./yupSchema";
 import { toast } from "react-toastify";
 
 const AgendamentoForm = () => {
-  const [{}, dispatch] = useContext(AppContext);
+  const [{ formState }, dispatch] = useContext(AppContext);
   const format = (value) => moment(value).format("DD/MM/yyyy");
+
   return (
     <CONTAINER>
       <h1>Agendamento</h1>
       <Formik
-        initialValues={{
-          name: "",
-          age: "",
-          // email: "",
-          schedule: "",
-          date: "",
-        }}
+        initialValues={formState}
+        enableReinitialize={true}
         validationSchema={validationSchema}
         onSubmit={async (values, { setSubmitting, resetForm }) => {
           const { data } = await createAgendamento(
@@ -68,13 +64,6 @@ const AgendamentoForm = () => {
                 <div className="error-message">{errors.age}</div>
               )}
             </Form.Group>
-            {/* <Form.Group controlId="formEmail">
-              <Form.Label>Email :</Form.Label>
-              <Field id="email" name="email" type="email"></Field>
-              {touched.email && errors.email && (
-                <div className="error-message">{errors.email}</div>
-              )}
-            </Form.Group> */}
             <Form.Group controlId="formDate">
               <label>Data de agendamento :</label>
               <DatePicker minDate={new Date()} name="date" />

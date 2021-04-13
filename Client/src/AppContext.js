@@ -5,14 +5,18 @@ const initialState = {
   agendamentos: [],
   historico: [],
   week: [],
-  formState: "",
+  formState: {
+    name: "",
+    age: "",
+    schedule: "",
+    date: "",
+  },
 };
 const reducer = (state, action) => {
   switch (action.type) {
     case "SET_AGENDAMENTOS": {
       return {
         ...state,
-        formState: "",
         agendamentos: action.payload.agendamentos.filter(
           (agendamento) => agendamento.realized === false
         ),
@@ -27,6 +31,16 @@ const reducer = (state, action) => {
         week: action.payload.week,
       };
     }
+    case "SET_FORM": {
+      return {
+        ...state,
+        formState: {
+          ...state.formState,
+          schedule: action.payload.schedule,
+          date: action.payload.date,
+        },
+      };
+    }
     case "CREATE": {
       return {
         ...state,
@@ -36,7 +50,6 @@ const reducer = (state, action) => {
     case "DELETE": {
       return {
         ...state,
-        formState: "",
         agendamentos: state.agendamentos.filter(
           (agendamento) => agendamento._id !== action.payload
         ),
@@ -48,7 +61,6 @@ const reducer = (state, action) => {
     case "FINALIZAR":
       return {
         ...state,
-        formState: "",
         agendamentos: state.agendamentos.filter(
           (agendamento) => agendamento._id !== action.payload._id
         ),
