@@ -17,8 +17,10 @@ const Listagem = (props) => {
   const listingOrdenado = listing.sort((a, b) => {
     return moment(a.date, "DD/MM/yyyy").isBefore(moment(b.date, "DD/MM/yyyy"))
       ? moment(a.date, "DD/MM/yyyy").diff(moment(b.date, "DD/MM/yyyy"))
-      : a.date === b.date && parseInt(a.schedule) - parseInt(b.schedule);
+      : a.date === b.date &&
+          moment(a.schedule, "HH:mm").diff(moment(b.schedule, "HH:mm"));
   });
+
   return (
     <Table size="sm" striped bordered hover>
       <thead>
