@@ -19,55 +19,63 @@ export const createAgendamentos = async (req, res) => {
   const newAgendamento = new Agendamento(agendamento);
   try {
     const dia = await Dia.findOne({ date: newAgendamento.date });
-    if (
-      moment(dia.date, "DD/MM/yyyy").isSameOrBefore(
-        moment(moment(), "DD/MM/yyyy"),
-        "day"
-      ) &&
-      moment().isAfter(moment(newAgendamento.schedule, "HH:mm"))
-    ) {
-      return res.json({ message: "Não é possível escolher uma data passada" });
-    }
-    if (dia.schedules ? dia.schedules.length > 19 : false) {
-      return res.json({ message: "Não há mais vagas para esse dia" });
-    }
-    if (dia.schedules) {
+    if (dia) {
       if (
-        dia.schedules.find(
-          (schedule) => schedule.schedule === newAgendamento.schedule
-        )
+        moment(dia.date, "DD/MM/yyyy").isSameOrBefore(
+          moment(moment(), "DD/MM/yyyy"),
+          "day"
+        ) &&
+        moment().isAfter(moment(newAgendamento.schedule, "HH:mm"))
       ) {
-        const schedules = dia.schedules.filter(
-          (schedule) => schedule.schedule === newAgendamento.schedule
-        );
-        if (schedules.length > 1) {
-          const age = moment().diff(
-            moment(newAgendamento.age, "DD/MM/yyyy"),
-            "years"
+        return res.json({
+          message: "Não é possível escolher uma data passada",
+        });
+      }
+      if (dia.schedules ? dia.schedules.length > 19 : false) {
+        return res.json({ message: "Não há mais vagas para esse dia" });
+      }
+      if (dia.schedules) {
+        if (
+          dia.schedules.find(
+            (schedule) => schedule.schedule === newAgendamento.schedule
+          )
+        ) {
+          const schedules = dia.schedules.filter(
+            (schedule) => schedule.schedule === newAgendamento.schedule
           );
+          if (schedules.length > 1) {
+            const age = moment().diff(
+              moment(newAgendamento.age, "DD/MM/yyyy"),
+              "years"
+            );
 
-          const idosos = schedules.filter(
-            (schedule) =>
-              moment().diff(
-                moment(schedule.pacientAge, "DD/MM/yyyy"),
-                "years"
-              ) > 60
-          );
-          if (idosos.length > 1) {
-            return res.json({ message: "Não há mais vagas para esse horário" });
-            return;
-          }
-          if (age > 60) {
-            const schedulesOrdenado = dia.schedules.sort((a, b) => (a, b) => {
-              moment(moment(a.age, "DD/MM/yyyy")).diff(
-                moment(b.age, "DD/MM/yyyy")
+            const idosos = schedules.filter(
+              (schedule) =>
+                moment().diff(
+                  moment(schedule.pacientAge, "DD/MM/yyyy"),
+                  "years"
+                ) > 60
+            );
+            if (idosos.length > 1) {
+              return res.json({
+                message: "Não há mais vagas para esse horário",
+              });
+              return;
+            }
+            if (age > 60) {
+              const schedulesOrdenado = dia.schedules.sort((a, b) => (a, b) => {
+                moment(moment(a.age, "DD/MM/yyyy")).diff(
+                  moment(b.age, "DD/MM/yyyy")
+                );
+              });
+              await Agendamento.findByIdAndRemove(
+                schedulesOrdenado[0].pacientId
               );
-            });
-            await Agendamento.findByIdAndRemove(schedulesOrdenado[0].pacientId);
-          } else {
-            return res.json({
-              message: "Vaga exclusiva para pessoas acimas de 60 anos",
-            });
+            } else {
+              return res.json({
+                message: "Vaga exclusiva para pessoas acimas de 60 anos",
+              });
+            }
           }
         }
       }
