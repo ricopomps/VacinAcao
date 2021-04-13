@@ -19,8 +19,20 @@ export const createAgendamentos = async (req, res) => {
   const newAgendamento = new Agendamento(agendamento);
   try {
     const dia = await Dia.findOne({ date: newAgendamento.date });
+    if (
+      moment(dia.date, "DD/MM/yyyy").isSameOrBefore(
+        moment(moment(), "DD/MM/yyyy"),
+        "day"
+      ) ||
+      moment(newAgendamento.schedule, "HH:mm").isBefore(
+        moment(moment(), "HH:mm"),
+        "hour"
+      )
+    ) {
+      return res.json({ message: "Não é possível escolher uma data passada" });
+    }
     if (dia.schedules ? dia.schedules.length > 19 : false) {
-      res.json({ message: "Não há mais vagas para esse dia" });
+      return res.json({ message: "Não há mais vagas para esse dia" });
     }
     if (dia.schedules) {
       if (
@@ -45,7 +57,7 @@ export const createAgendamentos = async (req, res) => {
               ) > 60
           );
           if (idosos.length > 1) {
-            res.json({ message: "Não há mais vagas para esse horário" });
+            return res.json({ message: "Não há mais vagas para esse horário" });
             return;
           }
           if (age > 60) {
@@ -56,10 +68,9 @@ export const createAgendamentos = async (req, res) => {
             });
             await Agendamento.findByIdAndRemove(schedulesOrdenado[0].pacientId);
           } else {
-            res.json({
+            return res.json({
               message: "Vaga exclusiva para pessoas acimas de 60 anos",
             });
-            return;
           }
         }
       }
@@ -89,7 +100,7 @@ export const createAgendamentos = async (req, res) => {
     res.status(201).json(agendamento);
   } catch (error) {
     console.log(error);
-    res.status(404).json({ message: error.message });
+    return res.status(404).json({ message: error.message });
   }
 };
 
@@ -111,7 +122,7 @@ export const updateAgendamento = async (req, res) => {
     res.status(200).json(updatedAgendamento);
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
 
@@ -123,9 +134,9 @@ export const deleteAgendamento = async (req, res) => {
 
     await Agendamento.findByIdAndRemove(_id);
 
-    res.status(200).json({ message: "Deleted" });
+    return res.status(200).json({ message: "Deleted" });
   } catch (error) {
     console.log(error);
-    res.status(400).json({ message: error.message });
+    return res.status(400).json({ message: error.message });
   }
 };
