@@ -7,6 +7,20 @@ import { getCurrentWeek } from "../../utils/getCurrentWeek";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
   const days = PrepareValidSchedules();
+  const getTooltip = (check) => {
+    switch (check) {
+      case "success":
+        return "Livre";
+      case "warning":
+        return "Uma vaga";
+      case "primary":
+        return "Apenas idosos";
+      case "danger":
+        return "Sem vagas";
+      default:
+        return "Agendamento";
+    }
+  };
   const check = (interval, day) => {
     if (
       day.schedules.length > 19 ||
@@ -59,6 +73,7 @@ const Calendar = () => {
               <td key={Math.random()}>
                 <CalendarDay
                   vacancy={check(interval, day)}
+                  tooltip={getTooltip(check(interval, day))}
                   disabled={check(interval, day) === "danger"}
                   onClick={() => console.log(day, interval)}
                 >
