@@ -11,6 +11,7 @@ const initialState = {
     schedule: "",
     date: "",
   },
+  temp: "",
 };
 const reducer = (state, action) => {
   switch (action.type) {
@@ -23,6 +24,12 @@ const reducer = (state, action) => {
         historico: action.payload.agendamentos.filter(
           (agendamento) => agendamento.realized === true
         ),
+        formState: {
+          name: "",
+          age: "",
+          schedule: "",
+          date: "",
+        },
       };
     }
     case "SET_WEEK": {
@@ -44,7 +51,7 @@ const reducer = (state, action) => {
     case "CREATE": {
       return {
         ...state,
-        formState: action.payload,
+        temp: action.payload,
       };
     }
     case "DELETE": {
