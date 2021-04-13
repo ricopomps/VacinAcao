@@ -24,10 +24,7 @@ export const createAgendamentos = async (req, res) => {
         moment(moment(), "DD/MM/yyyy"),
         "day"
       ) ||
-      moment(newAgendamento.schedule, "HH:mm").isBefore(
-        moment(moment(), "HH:mm"),
-        "hour"
-      )
+      moment().isAfter(moment(interval, "HH:mm"))
     ) {
       return res.json({ message: "Não é possível escolher uma data passada" });
     }

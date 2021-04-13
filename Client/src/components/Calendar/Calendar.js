@@ -32,7 +32,7 @@ const Calendar = () => {
         moment(moment(), "DD/MM/yyyy"),
         "day"
       ) &&
-        moment(interval, "HH:mm").isBefore(moment(moment(), "HH:mm"), "hour"))
+        moment().isAfter(moment(interval, "HH:mm")))
     ) {
       return "danger";
     }
