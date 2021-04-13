@@ -13,7 +13,6 @@ import { toast } from "react-toastify";
 
 const AgendamentoForm = () => {
   const [{}, dispatch] = useContext(AppContext);
-  const valores = [1, 2, 3, 4, 5];
   const format = (value) => moment(value).format("DD/MM/yyyy");
   return (
     <CONTAINER>
