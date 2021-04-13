@@ -57,6 +57,7 @@ const reducer = (state, action) => {
     case "DELETE": {
       return {
         ...state,
+        temp: action.payload,
         agendamentos: state.agendamentos.filter(
           (agendamento) => agendamento._id !== action.payload
         ),
@@ -68,6 +69,7 @@ const reducer = (state, action) => {
     case "FINALIZAR":
       return {
         ...state,
+        temp: action.payload,
         agendamentos: state.agendamentos.filter(
           (agendamento) => agendamento._id !== action.payload._id
         ),

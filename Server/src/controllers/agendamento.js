@@ -137,7 +137,13 @@ export const deleteAgendamento = async (req, res) => {
     if (!mongoose.Types.ObjectId.isValid(_id))
       return res.status(404).send("Agendamento não encontrado");
 
+    const agendamento = await Agendamento.findOne({ _id: _id });
     await Agendamento.findByIdAndRemove(_id);
+    await Dia.update(
+      { date: agendamento.date },
+      { $pull: { schedules: { pacientId: _id } } },
+      { safe: true, multi: true }
+    );
 
     return res.status(200).json({ message: "Deleted" });
   } catch (error) {

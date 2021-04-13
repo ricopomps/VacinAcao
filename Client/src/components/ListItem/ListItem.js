@@ -27,8 +27,8 @@ const ListItem = ({ index, agendamento, isHistorico }) => {
   const onChange = (e) => {
     setDescription(e.target.value);
   };
-  const onDelete = () => {
-    deleteAgendamento(agendamento._id);
+  const onDelete = async () => {
+    await deleteAgendamento(agendamento._id);
     setModalShow(false);
     dispatch({ type: "DELETE", payload: agendamento._id });
     toast.error("Atendimento deletado");
