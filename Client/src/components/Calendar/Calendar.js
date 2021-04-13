@@ -1,26 +1,12 @@
-import React, { useState, useEffect } from "react";
+import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import moment from "moment";
-import { getWeek } from "../../api";
+import AppContext from "../../AppContext";
 import { prepareIntervals } from "../../utils/prepareIntervals";
-import { PrepareValidSchedules } from "../../utils/prepareValidSchedules";
 import { getCurrentWeek } from "../../utils/getCurrentWeek";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
-  const [days, setDays] = useState([]);
-  const getDays = async () => {
-    const { data } = await getWeek();
-
-    setDays(data);
-    console.log(data);
-    console.log(days);
-    console.log();
-  };
-  useEffect(() => {
-    getDays();
-    console.log("useEffect");
-  }, []);
-  // const days = PrepareValidSchedules();
+  const [{ days }] = useContext(AppContext);
   const getTooltip = (check) => {
     switch (check) {
       case "success":
@@ -71,22 +57,6 @@ const Calendar = () => {
       return "success";
     }
   };
-  const setAvaiability = () => {
-    let newArray = days.map((dia) => dia);
-  };
-  const console2 = (bode) => {
-    console.log(bode);
-    return bode;
-  };
-  const checkagem = (interval, day) => {
-    if (day.schedules.find((schedule) => schedule.schedule === interval)) {
-      console.log("Achou");
-      return day.schedules.find((schedule) => schedule.schedule === interval)
-        .avaibility;
-    } else {
-      return "success";
-    }
-  };
   return (
     <Table striped bordered hover size="sm">
       <thead>
@@ -102,12 +72,9 @@ const Calendar = () => {
             {days.map((day) => (
               <td key={Math.random()}>
                 <CalendarDay
-                  // vacancy={check(interval, day)}
                   vacancy={check(interval, day)}
-                  // tooltip={checkagem(interval, day)}
-                  // tooltip={getTooltip(check(interval, day))}
-                  // disabled="false"
-                  // disabled={check(interval, day) === "danger"}
+                  tooltip={getTooltip(check(interval, day))}
+                  disabled={check(interval, day) === "danger"}
                   onClick={() => console.log(day, interval)}
                 >
                   {interval}

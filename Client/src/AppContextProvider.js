@@ -1,18 +1,18 @@
 import React, { useEffect, useReducer } from "react";
 
 import AppContext, { reducer, initialState } from "./AppContext";
-import { fetchAgendamentos, getDay } from "./api";
+import { fetchAgendamentos, getWeek } from "./api";
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { formState } = state;
 
   const fetchData = async () => {
-    const responseAgendamentos = await fetchAgendamentos();
-    const days = await getDay();
+    const { data: responseAgendamentos } = await fetchAgendamentos();
+    const { data: days } = await getWeek();
     dispatch({
       type: "SET_AGENDAMENTOS",
-      payload: { agendamentos: responseAgendamentos.data, dias: days.data },
+      payload: { agendamentos: responseAgendamentos, dias: days },
     });
   };
 
