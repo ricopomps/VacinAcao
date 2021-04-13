@@ -30,6 +30,7 @@ const AgendamentoForm = () => {
           const { data } = await createAgendamento(
             (values = {
               ...values,
+              name: values.name.trim(),
               age: format(values.age),
               date: format(values.date),
             })
