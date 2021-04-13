@@ -1,10 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import AppContext from "../../AppContext";
 import moment from "moment";
 import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
-
+import InputGroup from "react-bootstrap/InputGroup";
+import FormControl from "react-bootstrap/FormControl";
+import Container from "react-bootstrap/Container";
 const Listagem = (props) => {
+  const [search, setSearch] = useState("");
   let isHistorico = false,
     listing = [];
   const [{ agendamentos, historico }] = useContext(AppContext);
@@ -22,29 +25,46 @@ const Listagem = (props) => {
   });
 
   return (
-    <Table size="sm" striped bordered hover>
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Nome</th>
-          <th>Data de nascimento</th>
-          <th>Dia</th>
-          <th>Horário</th>
-          {isHistorico ? <th>Descrição do atendimento</th> : null}
-          <th>Atendimento</th>
-        </tr>
-      </thead>
-      <tbody>
-        {listingOrdenado.map((agendamento, index) => (
-          <ListItem
-            key={index}
-            index={index}
-            isHistorico={isHistorico}
-            agendamento={agendamento}
+    <>
+      <br />
+      <Container>
+        <InputGroup className="mb-3">
+          <FormControl
+            placeholder="Pesquisar"
+            aria-label="Recipient's username"
+            aria-describedby="basic-addon2"
+            onChange={(e) => setSearch(e.target.value)}
           />
-        ))}
-      </tbody>
-    </Table>
+        </InputGroup>
+      </Container>
+      <Table size="sm" striped bordered hover>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Nome</th>
+            <th>Data de nascimento</th>
+            <th>Dia</th>
+            <th>Horário</th>
+            {isHistorico && <th>Descrição do atendimento</th>}
+            <th>Atendimento</th>
+          </tr>
+        </thead>
+        <tbody>
+          {listingOrdenado
+            .filter(({ name }) =>
+              name.toLowerCase().includes(search.toLowerCase())
+            )
+            .map((agendamento, index) => (
+              <ListItem
+                key={index}
+                index={index}
+                isHistorico={isHistorico}
+                agendamento={agendamento}
+              />
+            ))}
+        </tbody>
+      </Table>
+    </>
   );
 };
 
