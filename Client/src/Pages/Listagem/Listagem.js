@@ -14,11 +14,11 @@ const Listagem = (props) => {
     listing = historico;
     isHistorico = true;
   }
-  const listingOrdenado = listing.sort((a, b) =>
-    moment(a.date).isBefore(b.date)
-      ? moment(a.date).diff(b.date)
-      : a.date === b.date && a.schedule - b.schedule
-  );
+  const listingOrdenado = listing.sort((a, b) => {
+    return moment(a.date, "DD/MM/yyyy").isBefore(moment(b.date, "DD/MM/yyyy"))
+      ? moment(a.date, "DD/MM/yyyy").diff(moment(b.date, "DD/MM/yyyy"))
+      : a.date === b.date && parseInt(a.schedule) - parseInt(b.schedule);
+  });
   return (
     <Table size="sm" striped bordered hover>
       <thead>
