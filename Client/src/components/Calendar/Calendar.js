@@ -3,10 +3,18 @@ import Table from "react-bootstrap/Table";
 import moment from "moment";
 import AppContext from "../../AppContext";
 import { prepareIntervals } from "../../utils/prepareIntervals";
-import { getCurrentWeek } from "../../utils/getCurrentWeek";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
   const [{ week }] = useContext(AppContext);
+  const diasDaSemana = [
+    "Domingo",
+    "Segunda",
+    "Terça",
+    "Quarta",
+    "Quinta",
+    "Sexta",
+    "Sábado",
+  ];
   const getTooltip = (check) => {
     switch (check) {
       case "success":
@@ -61,8 +69,13 @@ const Calendar = () => {
     <Table striped bordered hover size="sm">
       <thead>
         <tr>
-          {getCurrentWeek().map((dia, index) => (
-            <th key={index}>{dia.show}</th>
+          {week.map((dia, index) => (
+            <th key={index}>
+              {diasDaSemana[index] +
+                moment(moment().startOf("week"))
+                  .add(index, "days")
+                  .format(` - DD/MM`)}
+            </th>
           ))}
         </tr>
       </thead>
