@@ -23,8 +23,8 @@ export const createAgendamentos = async (req, res) => {
       moment(dia.date, "DD/MM/yyyy").isSameOrBefore(
         moment(moment(), "DD/MM/yyyy"),
         "day"
-      ) ||
-      moment().isAfter(moment(interval, "HH:mm"))
+      ) &&
+      moment().isAfter(moment(newAgendamento.schedule, "HH:mm"))
     ) {
       return res.json({ message: "Não é possível escolher uma data passada" });
     }
