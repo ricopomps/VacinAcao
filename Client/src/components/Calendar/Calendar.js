@@ -6,7 +6,7 @@ import { prepareIntervals } from "../../utils/prepareIntervals";
 import { getCurrentWeek } from "../../utils/getCurrentWeek";
 import CalendarDay from "./CalendarDay/CalendarDay";
 const Calendar = () => {
-  const [{ days }] = useContext(AppContext);
+  const [{ week }] = useContext(AppContext);
   const getTooltip = (check) => {
     switch (check) {
       case "success":
@@ -69,7 +69,7 @@ const Calendar = () => {
       <tbody>
         {prepareIntervals().map((interval) => (
           <tr key={Math.random()}>
-            {days.map((day) => (
+            {week.map((day) => (
               <td key={Math.random()}>
                 <CalendarDay
                   vacancy={check(interval, day)}

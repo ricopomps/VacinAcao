@@ -9,15 +9,24 @@ const AppContextProvider = ({ children }) => {
 
   const fetchData = async () => {
     const { data: responseAgendamentos } = await fetchAgendamentos();
-    const { data: days } = await getWeek();
+    const { data: week } = await getWeek();
     dispatch({
       type: "SET_AGENDAMENTOS",
-      payload: { agendamentos: responseAgendamentos, dias: days },
+      payload: { agendamentos: responseAgendamentos, week: week },
+    });
+  };
+
+  const setWeek = async () => {
+    const { data: week } = await getWeek();
+    dispatch({
+      type: "SET_WEEK",
+      payload: { week: week },
     });
   };
 
   useEffect(() => {
     fetchData();
+    setWeek();
   }, []);
   useEffect(() => {
     fetchData();

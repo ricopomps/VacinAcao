@@ -5,8 +5,10 @@ import mongoose from "mongoose";
 export const getWeekSchedules = async () => {
   const days = await Dia.find();
 
-  const week = getCurrentWeek().map((day) => moment(day.date, "DD/MM/yyyy"));
-  const weekTop2 = week.map((day) =>
+  const emptyWeek = getCurrentWeek().map((day) =>
+    moment(day.date, "DD/MM/yyyy")
+  );
+  const scheduledWeek = emptyWeek.map((day) =>
     days.find((schedule) => schedule.date === day._i)
       ? {
           day: days.find((schedule) => schedule.date === day._i).date,
@@ -14,27 +16,13 @@ export const getWeekSchedules = async () => {
             .schedules,
           avaibility: "danger",
         }
-      : { day: day._i, schedules: [], avaibility: "success" }
+      : {
+          day: day._i,
+          schedules: [],
+        }
   );
 
-  const weekTop3 = weekTop2.map(
-    (day) =>
-      true && {
-        day: day.day,
-        schedules: day.schedules.map(
-          (schedule) =>
-            true && {
-              _id: schedule._id,
-              schedule: schedule.schedule,
-              pacientId: schedule.pacientId,
-              pacientAge: schedule.pacientAge,
-              avaiablity: check(schedule, day),
-            }
-        ),
-      }
-  );
-
-  return weekTop3;
+  return scheduledWeek;
 };
 
 export const check = (interval, day) => {
