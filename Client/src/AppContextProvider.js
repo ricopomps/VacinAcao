@@ -25,11 +25,11 @@ const AppContextProvider = ({ children }) => {
 
   useEffect(() => {
     fetchData();
-    setWeek();
+    setWeek(numWeek);
   }, []);
   useEffect(() => {
     fetchData();
-    setWeek();
+    setWeek(numWeek);
   }, [temp]);
   useEffect(() => {
     setWeek(numWeek);
