@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext } from "react";
 import AppContext from "../../AppContext";
 import moment from "moment";
 import Table from "react-bootstrap/Table";
@@ -9,7 +9,9 @@ import Container from "react-bootstrap/Container";
 const Listagem = (props) => {
   let isHistorico = false,
     listing = [];
-  const [{ agendamentos, historico }, dispatch] = useContext(AppContext);
+  const [{ agendamentos, historico, search }, dispatch] = useContext(
+    AppContext
+  );
   if (props.location.pathname === "/listagem") {
     listing = agendamentos;
   } else {
@@ -30,6 +32,7 @@ const Listagem = (props) => {
         <InputGroup className="mb-3">
           <FormControl
             placeholder="Pesquisar"
+            value={search}
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
             onChange={(e) =>
