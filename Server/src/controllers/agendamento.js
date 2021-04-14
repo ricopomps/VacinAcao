@@ -4,8 +4,9 @@ import moment from "moment";
 import mongoose from "mongoose";
 
 export const getAgendamentos = async (req, res) => {
+  const { name } = req.params;
   try {
-    const agendamento = await Agendamento.find();
+    const agendamento = await Agendamento.find({ name: new RegExp(name, "i") });
     res.status(200).json(agendamento);
   } catch (error) {
     console.log(error);

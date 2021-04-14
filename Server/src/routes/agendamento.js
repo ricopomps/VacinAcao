@@ -9,6 +9,7 @@ import {
 
 const router = express.Router();
 
+router.get("/:name", getAgendamentos);
 router.get("/", getAgendamentos);
 router.post("/", createAgendamentos);
 router.patch("/:id", updateAgendamento);

@@ -7,10 +7,9 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Container from "react-bootstrap/Container";
 const Listagem = (props) => {
-  const [search, setSearch] = useState("");
   let isHistorico = false,
     listing = [];
-  const [{ agendamentos, historico }] = useContext(AppContext);
+  const [{ agendamentos, historico }, dispatch] = useContext(AppContext);
   if (props.location.pathname === "/listagem") {
     listing = agendamentos;
   } else {
@@ -33,7 +32,12 @@ const Listagem = (props) => {
             placeholder="Pesquisar"
             aria-label="Recipient's username"
             aria-describedby="basic-addon2"
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={(e) =>
+              dispatch({
+                type: "SET_SEARCH",
+                payload: { search: e.target.value },
+              })
+            }
           />
         </InputGroup>
       </Container>
@@ -50,18 +54,14 @@ const Listagem = (props) => {
           </tr>
         </thead>
         <tbody>
-          {listingOrdenado
-            .filter(({ name }) =>
-              name.toLowerCase().includes(search.toLowerCase())
-            )
-            .map((agendamento, index) => (
-              <ListItem
-                key={index}
-                index={index}
-                isHistorico={isHistorico}
-                agendamento={agendamento}
-              />
-            ))}
+          {listingOrdenado.map((agendamento, index) => (
+            <ListItem
+              key={index}
+              index={index}
+              isHistorico={isHistorico}
+              agendamento={agendamento}
+            />
+          ))}
         </tbody>
       </Table>
     </>

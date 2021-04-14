@@ -6,6 +6,7 @@ const initialState = {
   historico: [],
   week: [],
   numWeek: 0,
+  search: "",
   formState: {
     name: "",
     age: "",
@@ -43,6 +44,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         numWeek: action.payload.numWeek,
+      };
+    }
+    case "SET_SEARCH": {
+      return {
+        ...state,
+        search: action.payload.search,
       };
     }
     case "SET_FORM": {
