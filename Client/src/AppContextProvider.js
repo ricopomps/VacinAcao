@@ -6,7 +6,7 @@ import { fetchAgendamentos, getWeek } from "./api";
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const { temp, numWeek, search } = state;
-  const fetchData = async (search) => {
+  const fetchData = async () => {
     const { data: responseAgendamentos } = await fetchAgendamentos(search);
     const { data: week } = await getWeek();
     dispatch({
@@ -35,7 +35,7 @@ const AppContextProvider = ({ children }) => {
     setWeek(numWeek);
   }, [numWeek]);
   useEffect(() => {
-    fetchData(search);
+    fetchData();
   }, [search]);
   return (
     <AppContext.Provider value={[state, dispatch]}>
