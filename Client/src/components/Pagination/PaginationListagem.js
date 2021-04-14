@@ -26,7 +26,11 @@ const PaginationListagem = ({
         onClick={() => currentPage > 1 && paginate(currentPage - 1)}
       />
       {arr.map((number) => (
-        <Pagination.Item key={number + 1} onClick={() => paginate(number + 1)}>
+        <Pagination.Item
+          active={number + 1 === currentPage}
+          key={number + 1}
+          onClick={() => paginate(number + 1)}
+        >
           {number + 1}
         </Pagination.Item>
       ))}
