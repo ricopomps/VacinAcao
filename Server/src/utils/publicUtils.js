@@ -2,10 +2,10 @@ import moment from "moment";
 import Dia from "../models/dia.js";
 import mongoose from "mongoose";
 
-export const getWeekSchedules = async () => {
+export const getWeekSchedules = async (week = 0) => {
   const days = await Dia.find();
 
-  const emptyWeek = getCurrentWeek().map((day) =>
+  const emptyWeek = getCurrentWeek(week).map((day) =>
     moment(day.date, "DD/MM/yyyy")
   );
   const scheduledWeek = emptyWeek.map((day) =>
@@ -61,7 +61,7 @@ export const check = (interval, day) => {
   }
 };
 
-export const getCurrentWeek = () => {
+export const getCurrentWeek = (week) => {
   const diasDaSemana = [
     "Domingo",
     "Segunda",
@@ -71,13 +71,12 @@ export const getCurrentWeek = () => {
     "Sexta",
     "Sábado",
   ];
-  var currentDate = moment();
 
-  var weekStart = currentDate.clone().startOf("week");
+  var weekStart = moment().add(week, "weeks").startOf("week");
 
   var days = [];
 
-  for (var i = 0; i <= 6; i++) {
+  for (let i = 0; i <= 6; i++) {
     days.push({
       show:
         diasDaSemana[i] + moment(weekStart).add(i, "days").format(` - DD/MM`),

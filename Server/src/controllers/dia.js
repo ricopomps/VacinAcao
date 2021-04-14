@@ -15,7 +15,8 @@ export const getDias = async (req, res) => {
 };
 
 export const getWeek = async (req, res) => {
-  const data = await getWeekSchedules();
+  const { week } = req.params;
+  const data = await getWeekSchedules(week);
   res.status(200).json(data);
 };
 

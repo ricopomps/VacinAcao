@@ -5,6 +5,7 @@ const initialState = {
   agendamentos: [],
   historico: [],
   week: [],
+  numWeek: 0,
   formState: {
     name: "",
     age: "",
@@ -36,6 +37,12 @@ const reducer = (state, action) => {
       return {
         ...state,
         week: action.payload.week,
+      };
+    }
+    case "CHANGE_WEEK": {
+      return {
+        ...state,
+        numWeek: action.payload.numWeek,
       };
     }
     case "SET_FORM": {
