@@ -6,7 +6,11 @@ const initialState = {
   historico: [],
   week: [],
   numWeek: 0,
-  search: "",
+  pagination: {
+    search: "",
+    currentPage: 1,
+    limit: 15,
+  },
   formState: {
     name: "",
     age: "",
@@ -49,7 +53,16 @@ const reducer = (state, action) => {
     case "SET_SEARCH": {
       return {
         ...state,
-        search: action.payload.search,
+        pagination: { ...state.pagination, search: action.payload.search },
+      };
+    }
+    case "SET_PAGINATION": {
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          currentPage: action.payload.currentPage,
+        },
       };
     }
     case "SET_FORM": {

@@ -6,18 +6,31 @@ import ListItem from "../../components/ListItem/ListItem";
 import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Container from "react-bootstrap/Container";
+import PaginationListagem from "../../components/Pagination/PaginationListagem";
+
 const Listagem = (props) => {
   let isHistorico = false,
     listing = [];
-  const [{ agendamentos, historico, search }, dispatch] = useContext(
-    AppContext
-  );
+  const [
+    {
+      agendamentos,
+      historico,
+      pagination: { search, currentPage },
+    },
+    dispatch,
+  ] = useContext(AppContext);
   if (props.location.pathname === "/listagem") {
     listing = agendamentos;
   } else {
     listing = historico;
     isHistorico = true;
   }
+  const paginate = (number) => {
+    dispatch({
+      type: "SET_PAGINATION",
+      payload: { currentPage: number },
+    });
+  };
   const listingOrdenado = listing.sort((a, b) => {
     return moment(a.date, "DD/MM/yyyy").isBefore(moment(b.date, "DD/MM/yyyy"))
       ? moment(a.date, "DD/MM/yyyy").diff(moment(b.date, "DD/MM/yyyy"))
@@ -67,6 +80,12 @@ const Listagem = (props) => {
           ))}
         </tbody>
       </Table>
+      <PaginationListagem
+        atendimentosPerPage={15}
+        totalAtendimentos={listing.length}
+        paginate={paginate}
+        currentPage={currentPage}
+      ></PaginationListagem>
     </>
   );
 };

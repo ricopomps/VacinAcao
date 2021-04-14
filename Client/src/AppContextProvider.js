@@ -5,13 +5,20 @@ import { fetchAgendamentos, getWeek } from "./api";
 
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const { temp, numWeek, search } = state;
+  const {
+    temp,
+    numWeek,
+    pagination: { search, currentPage, limit },
+  } = state;
 
   const debouncedValue = useDebounce(search, 200);
 
   const fetchData = async () => {
+    console.log("fetchData", currentPage);
     const { data: responseAgendamentos } = await fetchAgendamentos(
-      debouncedValue
+      debouncedValue,
+      currentPage,
+      limit
     );
     const { data: week } = await getWeek();
     dispatch({
@@ -41,7 +48,7 @@ const AppContextProvider = ({ children }) => {
   }, [numWeek]);
   useEffect(() => {
     fetchData();
-  }, [debouncedValue]);
+  }, [debouncedValue, currentPage]);
   return (
     <AppContext.Provider value={[state, dispatch]}>
       {children}
