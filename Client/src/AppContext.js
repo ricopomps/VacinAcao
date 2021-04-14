@@ -53,7 +53,11 @@ const reducer = (state, action) => {
     case "SET_SEARCH": {
       return {
         ...state,
-        pagination: { ...state.pagination, search: action.payload.search },
+        pagination: {
+          ...state.pagination,
+          search: action.payload.search,
+          currentPage: 1,
+        },
       };
     }
     case "SET_PAGINATION": {
