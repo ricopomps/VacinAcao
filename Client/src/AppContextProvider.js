@@ -14,20 +14,22 @@ const AppContextProvider = ({ children }) => {
   const debouncedValue = useDebounce(search, 200);
 
   const fetchData = async () => {
-    console.log("fetchData", currentPage);
     const { data: responseAgendamentos } = await fetchAgendamentos(
       debouncedValue,
       currentPage,
       limit,
       false
     );
+
     const { data: responseHistorico } = await fetchAgendamentos(
       debouncedValue,
       currentPage,
       limit,
       true
     );
+
     const { data: week } = await getWeek();
+
     dispatch({
       type: "SET_AGENDAMENTOS",
       payload: {
