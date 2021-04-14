@@ -4,8 +4,15 @@ const { REACT_APP_API_BASE_URL: baseUrl } = process.env;
 const API = axios.create({
   baseURL: baseUrl,
 });
-export const fetchAgendamentos = (name, currentPage, limit) =>
-  API.get(`/agendamento?name=${name}&page=${currentPage}&limit=${limit}`);
+export const fetchAgendamentos = (
+  name,
+  currentPage,
+  limit,
+  isHistorico = false
+) =>
+  API.get(
+    `/agendamento?name=${name}&page=${currentPage}&limit=${limit}&isHistorico=${isHistorico}`
+  );
 export const getDay = () => API.get("/dia");
 export const getWeek = (numWeek) => API.get(`/dia/week/${numWeek}`);
 export const createAgendamento = (newAgendamento) =>

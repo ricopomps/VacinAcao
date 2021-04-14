@@ -24,12 +24,8 @@ const reducer = (state, action) => {
     case "SET_AGENDAMENTOS": {
       return {
         ...state,
-        agendamentos: action.payload.agendamentos.filter(
-          (agendamento) => agendamento.realized === false
-        ),
-        historico: action.payload.agendamentos.filter(
-          (agendamento) => agendamento.realized === true
-        ),
+        agendamentos: action.payload.agendamentos,
+        historico: action.payload.historico,
         formState: {
           name: "",
           age: "",

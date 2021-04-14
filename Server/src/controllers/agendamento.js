@@ -4,10 +4,13 @@ import moment from "moment";
 import mongoose from "mongoose";
 
 export const getAgendamentos = async (req, res) => {
-  const { name = "", page = 1, limit = 15 } = req.query;
+  const { name = "", page = 1, limit = 15, isHistorico = false } = req.query;
 
   try {
-    const agendamento = await Agendamento.find({ name: new RegExp(name, "i") })
+    const agendamento = await Agendamento.find({
+      name: new RegExp(name, "i"),
+      realized: isHistorico,
+    })
       .limit(parseInt(limit))
       .skip((page - 1) * parseInt(limit))
       .exec();

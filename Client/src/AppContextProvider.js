@@ -18,12 +18,23 @@ const AppContextProvider = ({ children }) => {
     const { data: responseAgendamentos } = await fetchAgendamentos(
       debouncedValue,
       currentPage,
-      limit
+      limit,
+      false
+    );
+    const { data: responseHistorico } = await fetchAgendamentos(
+      debouncedValue,
+      currentPage,
+      limit,
+      true
     );
     const { data: week } = await getWeek();
     dispatch({
       type: "SET_AGENDAMENTOS",
-      payload: { agendamentos: responseAgendamentos, week: week },
+      payload: {
+        agendamentos: responseAgendamentos,
+        historico: responseHistorico,
+        week: week,
+      },
     });
   };
 
