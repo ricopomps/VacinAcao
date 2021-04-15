@@ -33,7 +33,7 @@ const PaginationListagem = ({
       ))}
       <Pagination.Next
         onClick={() =>
-          currentPage < pageNumbers[pageNumbers.lenght - 1] &&
+          currentPage < pageNumbers[pageNumbers.length - 1] &&
           paginate(currentPage + 1)
         }
       />
