@@ -34,7 +34,6 @@ const Listagem = (props) => {
       payload: { currentPage: number },
     });
   };
-
   useEffect(() => {
     paginate(1);
     dispatch({

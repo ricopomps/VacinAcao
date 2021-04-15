@@ -11,6 +11,7 @@ export const getAgendamentos = async (req, res) => {
       name: new RegExp(name, "i"),
       realized: isHistorico,
     })
+      .sort("date")
       .limit(parseInt(limit))
       .skip((page - 1) * parseInt(limit))
       .exec();
