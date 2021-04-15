@@ -3,10 +3,8 @@ import AppContext from "../../AppContext";
 import moment from "moment";
 import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
-import InputGroup from "react-bootstrap/InputGroup";
-import FormControl from "react-bootstrap/FormControl";
-import Container from "react-bootstrap/Container";
 import PaginationListagem from "../../components/Pagination/PaginationListagem";
+import Search from "../../components/Search/Search";
 
 const Listagem = (props) => {
   let isHistorico = false,
@@ -56,22 +54,15 @@ const Listagem = (props) => {
   return (
     <>
       <br />
-      <Container>
-        <InputGroup className="mb-3">
-          <FormControl
-            placeholder="Pesquisar"
-            value={search}
-            aria-label="Recipient's username"
-            aria-describedby="basic-addon2"
-            onChange={(e) =>
-              dispatch({
-                type: "SET_SEARCH",
-                payload: { search: e.target.value },
-              })
-            }
-          />
-        </InputGroup>
-      </Container>
+      <Search
+        value={search}
+        onChange={(e) =>
+          dispatch({
+            type: "SET_SEARCH",
+            payload: { search: e.target.value },
+          })
+        }
+      />
       <Table size="sm" striped bordered hover>
         <thead>
           <tr>
