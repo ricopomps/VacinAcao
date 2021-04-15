@@ -17,7 +17,7 @@ const Listagem = (props) => {
       historico,
       agendamentosCount,
       historicoCount,
-      pagination: { search, currentPage },
+      pagination: { search, currentPage, limit },
     },
     dispatch,
   ] = useContext(AppContext);
@@ -54,10 +54,11 @@ const Listagem = (props) => {
       <br />
       <Search
         value={search}
-        onChange={(e) =>
+        limit={limit}
+        onChange={(type, payload) =>
           dispatch({
-            type: "SET_SEARCH",
-            payload: { search: e.target.value },
+            type: type,
+            payload: payload,
           })
         }
       />

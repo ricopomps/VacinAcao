@@ -79,6 +79,15 @@ const reducer = (state, action) => {
         },
       };
     }
+    case "SET_LIMIT": {
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          limit: action.payload.limit,
+        },
+      };
+    }
     case "SET_FORM": {
       return {
         ...state,

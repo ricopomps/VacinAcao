@@ -57,7 +57,7 @@ const AppContextProvider = ({ children }) => {
   }, [numWeek]);
   useEffect(() => {
     fetchData();
-  }, [debouncedValue, currentPage]);
+  }, [debouncedValue, currentPage, limit]);
   return (
     <AppContext.Provider value={[state, dispatch]}>
       {children}
