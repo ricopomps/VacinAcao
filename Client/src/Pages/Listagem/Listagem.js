@@ -11,6 +11,7 @@ import PaginationListagem from "../../components/Pagination/PaginationListagem";
 const Listagem = (props) => {
   let isHistorico = false,
     listing = [];
+
   const [
     {
       agendamentos,
@@ -19,12 +20,14 @@ const Listagem = (props) => {
     },
     dispatch,
   ] = useContext(AppContext);
+
   if (props.location.pathname === "/listagem") {
     listing = agendamentos;
   } else {
     listing = historico;
     isHistorico = true;
   }
+
   const paginate = (number) => {
     dispatch({
       type: "SET_PAGINATION",
