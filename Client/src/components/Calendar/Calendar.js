@@ -71,6 +71,7 @@ const Calendar = () => {
     <>
       <PaginationComponent
         onBack={() =>
+          numWeek > 0 &&
           dispatch({
             type: "CHANGE_WEEK",
             payload: { numWeek: numWeek - 1 },
