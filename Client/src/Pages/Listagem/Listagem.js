@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import AppContext from "../../AppContext";
 import moment from "moment";
 import Table from "react-bootstrap/Table";
@@ -31,6 +31,15 @@ const Listagem = (props) => {
       payload: { currentPage: number },
     });
   };
+
+  useEffect(() => {
+    paginate(1);
+    dispatch({
+      type: "SET_SEARCH",
+      payload: { search: "" },
+    });
+  }, [props.location.pathname]);
+
   const listingOrdenado = listing.sort((a, b) => {
     return moment(a.date, "DD/MM/yyyy").isBefore(moment(b.date, "DD/MM/yyyy"))
       ? moment(a.date, "DD/MM/yyyy").diff(moment(b.date, "DD/MM/yyyy"))
