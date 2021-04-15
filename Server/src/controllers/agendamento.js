@@ -16,7 +16,10 @@ export const getAgendamentos = async (req, res) => {
       .skip((page - 1) * parseInt(limit))
       .exec();
 
-    const count = await Agendamento.count({ realized: isHistorico });
+    const count = await Agendamento.count({
+      name: new RegExp(name, "i"),
+      realized: isHistorico,
+    });
     res.status(200).json({ agendamentos: agendamento, count: count });
   } catch (error) {
     console.log(error);
