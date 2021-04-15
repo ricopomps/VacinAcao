@@ -86,7 +86,7 @@ const Listagem = (props) => {
         </tbody>
       </Table>
       <PaginationListagem
-        atendimentosPerPage={15}
+        atendimentosPerPage={limit}
         totalAtendimentos={count}
         paginate={paginate}
         currentPage={currentPage}
