@@ -60,6 +60,16 @@ const reducer = (state, action) => {
         },
       };
     }
+    case "CLEAR_SEARCH": {
+      return {
+        ...state,
+        pagination: {
+          ...state.pagination,
+          search: "",
+          currentPage: 1,
+        },
+      };
+    }
     case "SET_PAGINATION": {
       return {
         ...state,

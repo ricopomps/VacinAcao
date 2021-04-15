@@ -37,10 +37,8 @@ const Listagem = (props) => {
     });
   };
   useEffect(() => {
-    paginate(1);
     dispatch({
-      type: "SET_SEARCH",
-      payload: { search: "" },
+      type: "CLEAR_SEARCH",
     });
   }, [props.location.pathname]);
 
