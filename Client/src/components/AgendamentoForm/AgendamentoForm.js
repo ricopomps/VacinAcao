@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import DatePicker from "./DatePicker";
 import moment from "moment";
 import { prepareIntervals } from "../../utils/prepareIntervals";
@@ -10,10 +10,22 @@ import AppContext from "../../AppContext";
 import { createAgendamento } from "../../api";
 import { validationSchema } from "./yupSchema";
 import { toast } from "react-toastify";
+import { Prompt } from "react-router";
 
 const AgendamentoForm = () => {
   const [{ formState }, dispatch] = useContext(AppContext);
+
   const format = (value) => moment(value).format("DD/MM/yyyy");
+
+  useEffect(() => {
+    window.onbeforeunload = function () {
+      return true;
+    };
+
+    return () => {
+      window.onbeforeunload = null;
+    };
+  }, []);
 
   return (
     <CONTAINER>
@@ -43,6 +55,7 @@ const AgendamentoForm = () => {
         {({
           values,
           errors,
+          dirty,
           touched,
           handleChange,
           handleBlur,
@@ -50,6 +63,10 @@ const AgendamentoForm = () => {
           isSubmitting,
         }) => (
           <MYFORM onSubmit={handleSubmit} className="mx-auto">
+            <Prompt
+              when={dirty}
+              message="Você possui dados não salvos, deseja continuar?"
+            />
             <Form.Group controlId="formName">
               <label htmlFor="name">Nome:</label>
               <Field id="name" name="name" type="text"></Field>
