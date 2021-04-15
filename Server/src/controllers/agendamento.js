@@ -15,7 +15,9 @@ export const getAgendamentos = async (req, res) => {
       .limit(parseInt(limit))
       .skip((page - 1) * parseInt(limit))
       .exec();
-    res.status(200).json(agendamento);
+
+    const count = await Agendamento.count({ realized: isHistorico });
+    res.status(200).json({ agendamentos: agendamento, count: count });
   } catch (error) {
     console.log(error);
 

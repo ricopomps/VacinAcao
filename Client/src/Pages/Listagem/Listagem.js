@@ -10,12 +10,15 @@ import PaginationListagem from "../../components/Pagination/PaginationListagem";
 
 const Listagem = (props) => {
   let isHistorico = false,
+    count,
     listing = [];
 
   const [
     {
       agendamentos,
       historico,
+      agendamentosCount,
+      historicoCount,
       pagination: { search, currentPage },
     },
     dispatch,
@@ -23,11 +26,12 @@ const Listagem = (props) => {
 
   if (props.location.pathname === "/listagem") {
     listing = agendamentos;
+    count = agendamentosCount;
   } else {
     listing = historico;
     isHistorico = true;
+    count = historicoCount;
   }
-
   const paginate = (number) => {
     dispatch({
       type: "SET_PAGINATION",
@@ -93,7 +97,7 @@ const Listagem = (props) => {
       </Table>
       <PaginationListagem
         atendimentosPerPage={15}
-        totalAtendimentos={listing.length}
+        totalAtendimentos={count}
         paginate={paginate}
         currentPage={currentPage}
       ></PaginationListagem>

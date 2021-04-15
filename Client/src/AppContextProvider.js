@@ -14,19 +14,13 @@ const AppContextProvider = ({ children }) => {
   const debouncedValue = useDebounce(search, 200);
 
   const fetchData = async () => {
-    const { data: responseAgendamentos } = await fetchAgendamentos(
-      debouncedValue,
-      currentPage,
-      limit,
-      false
-    );
+    const {
+      data: { agendamentos: responseAgendamentos, count: agendamentosCount },
+    } = await fetchAgendamentos(debouncedValue, currentPage, limit, false);
 
-    const { data: responseHistorico } = await fetchAgendamentos(
-      debouncedValue,
-      currentPage,
-      limit,
-      true
-    );
+    const {
+      data: { agendamentos: responseHistorico, count: historicoCount },
+    } = await fetchAgendamentos(debouncedValue, currentPage, limit, true);
 
     const { data: week } = await getWeek();
 
@@ -35,6 +29,8 @@ const AppContextProvider = ({ children }) => {
       payload: {
         agendamentos: responseAgendamentos,
         historico: responseHistorico,
+        agendamentosCount: agendamentosCount,
+        historicoCount: historicoCount,
         week: week,
       },
     });

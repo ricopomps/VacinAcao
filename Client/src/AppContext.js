@@ -3,7 +3,9 @@ const AppContext = createContext();
 
 const initialState = {
   agendamentos: [],
+  agendamentosCount: 0,
   historico: [],
+  historicoCount: 0,
   week: [],
   numWeek: 0,
   pagination: {
@@ -26,6 +28,8 @@ const reducer = (state, action) => {
         ...state,
         agendamentos: action.payload.agendamentos,
         historico: action.payload.historico,
+        agendamentosCount: action.payload.agendamentosCount,
+        historicoCount: action.payload.historicoCount,
         formState: {
           name: "",
           age: "",

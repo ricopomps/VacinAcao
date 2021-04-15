@@ -7,26 +7,34 @@ const PaginationListagem = ({
   paginate,
   currentPage,
 }) => {
-  const arr = Array.from(Array(currentPage).keys());
+  const pageNumbers = [];
 
+  for (
+    let i = 1;
+    i <= Math.ceil(totalAtendimentos / atendimentosPerPage);
+    i++
+  ) {
+    pageNumbers.push(i);
+  }
   return (
     <Pagination>
       <Pagination.First onClick={() => paginate(1)} />
       <Pagination.Prev
         onClick={() => currentPage > 1 && paginate(currentPage - 1)}
       />
-      {arr.map((number) => (
+      {pageNumbers.map((number) => (
         <Pagination.Item
-          active={number + 1 === currentPage}
-          key={number + 1}
-          onClick={() => paginate(number + 1)}
+          active={number === currentPage}
+          key={number}
+          onClick={() => paginate(number)}
         >
-          {number + 1}
+          {number}
         </Pagination.Item>
       ))}
       <Pagination.Next
         onClick={() =>
-          totalAtendimentos === atendimentosPerPage && paginate(currentPage + 1)
+          currentPage < pageNumbers[pageNumbers.lenght - 1] &&
+          paginate(currentPage + 1)
         }
       />
     </Pagination>
