@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from "react";
-import DatePicker from "./DatePicker";
+import DatePicker from "./DatePicker/DatePicker";
 import moment from "moment";
 import { prepareIntervals } from "../../utils/prepareIntervals";
 import { CONTAINER, MYFORM, BUTTON } from "./styledComponents";
@@ -8,7 +8,7 @@ import { Form } from "react-bootstrap";
 import { Formik, Field } from "formik";
 import AppContext from "../../AppContext";
 import { createAgendamento } from "../../api";
-import { validationSchema } from "./yupSchema";
+import { validationSchema } from "./yupSchema/yupSchema";
 import { toast } from "react-toastify";
 import { Prompt } from "react-router";
 
