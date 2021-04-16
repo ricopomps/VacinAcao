@@ -41,7 +41,7 @@ const PaginationListagem = ({
       <Pagination.Last
         onClick={() =>
           currentPage !== pageNumbers[pageNumbers.length - 1] &&
-          paginate(pageNumbers[pageNumbers.length - 1])
+          paginate(Math.ceil(totalAtendimentos / atendimentosPerPage))
         }
       />
     </Pagination>
