@@ -85,6 +85,7 @@ const reducer = (state, action) => {
         pagination: {
           ...state.pagination,
           limit: action.payload.limit,
+          currentPage: 1,
         },
       };
     }
