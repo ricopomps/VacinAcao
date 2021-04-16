@@ -24,6 +24,8 @@ const Search = ({ value, onChange, limit }) => {
           <Field
             style={{ width: "50px" }}
             as="select"
+            id="limit"
+            name="limit"
             value={limit}
             onChange={(e) => onChange("SET_LIMIT", { limit: e.target.value })}
             autoComplete="off"
