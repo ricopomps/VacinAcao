@@ -26,7 +26,7 @@ const PaginationListagem = ({
           disabled={currentPage === 1}
           onClick={() => currentPage > 1 && paginate(currentPage - 1)}
         />
-        {pageNumbers[0] > 1 && <Pagination.Ellipsis disabled="true" />}
+        {pageNumbers[0] > 1 && <Pagination.Ellipsis disabled={true} />}
         {pageNumbers.map((number) => (
           <Pagination.Item
             active={number === currentPage}
@@ -38,7 +38,7 @@ const PaginationListagem = ({
         ))}
         {Math.ceil(totalAtendimentos / atendimentosPerPage) >
           pageNumbers[pageNumbers.length - 1] && (
-          <Pagination.Ellipsis disabled="true" />
+          <Pagination.Ellipsis disabled={true} />
         )}
         <Pagination.Next
           disabled={currentPage >= pageNumbers[pageNumbers.length - 1]}
