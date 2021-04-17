@@ -22,7 +22,7 @@ const AppContextProvider = ({ children }) => {
       data: { agendamentos: responseHistorico, count: historicoCount },
     } = await fetchAgendamentos(debouncedValue, currentPage, limit, true);
 
-    const { data: week } = await getWeek();
+    const { data: week } = await getWeek(numWeek);
 
     dispatch({
       type: "SET_AGENDAMENTOS",
