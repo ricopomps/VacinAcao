@@ -1,6 +1,21 @@
 import { getWeekSchedules, check, getCurrentWeek } from "./publicUtils";
 import moment from "moment";
 
+describe("Teste getWeekSchedules", () => {
+  it("Deve retornar 7 dias", () => {
+    for (let i = 0; i < 10; i++) {
+      const response = getWeekSchedules(i, []);
+      expect(response.length).toBe(7);
+    }
+  });
+  it("Primeiro dia ser domingo e ultimo dia ser sabado e ter o dia da semana atual", () => {
+    const week = getWeekSchedules(0, []);
+
+    expect(week[0].day).toBe(moment().startOf("week").format("DD/MM/yyyy"));
+    expect(week[6].day).toBe(moment().endOf("week").format("DD/MM/yyyy"));
+  });
+});
+
 describe("Teste getCurrentWeek", () => {
   it("Deve retornar 7 dias", () => {
     for (let i = 0; i < 10; i++) {
