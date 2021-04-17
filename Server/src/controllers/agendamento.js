@@ -1,5 +1,5 @@
-import Agendamento from "../models/agendamento.js";
-import Dia from "../models/dia.js";
+import AgendamentoModel from "../models/agendamento.js";
+import DiaModel from "../models/dia.js";
 import moment from "moment";
 import mongoose from "mongoose";
 
@@ -8,7 +8,7 @@ class AgendamentoController {
     const { name = "", page = 1, limit = 15, isHistorico = false } = req.query;
 
     try {
-      const agendamento = await Agendamento.find({
+      const agendamento = await AgendamentoModel.find({
         name: new RegExp(name, "i"),
         realized: isHistorico,
       })
@@ -17,7 +17,7 @@ class AgendamentoController {
         .skip((page - 1) * parseInt(limit))
         .exec();
 
-      const count = await Agendamento.count({
+      const count = await AgendamentoModel.count({
         name: new RegExp(name, "i"),
         realized: isHistorico,
       });
@@ -31,9 +31,9 @@ class AgendamentoController {
 
   async createAgendamentos(req, res) {
     const agendamento = req.body;
-    const newAgendamento = new Agendamento(agendamento);
+    const newAgendamento = new AgendamentoModel(agendamento);
     try {
-      const dia = await Dia.findOne({ date: newAgendamento.date });
+      const dia = await DiaModel.findOne({ date: newAgendamento.date });
       if (dia) {
         if (
           moment(dia.date, "DD/MM/yyyy").isSameOrBefore(
@@ -85,7 +85,7 @@ class AgendamentoController {
                     );
                   }
                 );
-                await Agendamento.findByIdAndRemove(
+                await AgendamentoModel.findByIdAndRemove(
                   schedulesOrdenado[0].pacientId
                 );
               } else {
@@ -97,7 +97,7 @@ class AgendamentoController {
           }
         }
       }
-      const newDay = new Dia({
+      const newDay = new DiaModel({
         date: newAgendamento.date,
         schedules: {
           schedule: newAgendamento.schedule,
@@ -107,7 +107,7 @@ class AgendamentoController {
       });
 
       await newAgendamento.save();
-      Dia.findOneAndUpdate(
+      DiaModel.findOneAndUpdate(
         { date: newDay.date },
         { date: newDay.date, $push: { schedules: newDay.schedules } },
         { new: true, upsert: true },
@@ -133,7 +133,7 @@ class AgendamentoController {
       if (!mongoose.Types.ObjectId.isValid(_id))
         return res.status(404).send("Agendamento não encontrado");
 
-      const updatedAgendamento = await Agendamento.findByIdAndUpdate(
+      const updatedAgendamento = await AgendamentoModel.findByIdAndUpdate(
         _id,
         agendamento,
         {
@@ -154,9 +154,9 @@ class AgendamentoController {
       if (!mongoose.Types.ObjectId.isValid(_id))
         return res.status(404).send("Agendamento não encontrado");
 
-      const agendamento = await Agendamento.findOne({ _id: _id });
-      await Agendamento.findByIdAndRemove(_id);
-      await Dia.update(
+      const agendamento = await AgendamentoModel.findOne({ _id: _id });
+      await AgendamentoModel.findByIdAndRemove(_id);
+      await DiaModel.update(
         { date: agendamento.date },
         { $pull: { schedules: { pacientId: _id } } },
         { safe: true, multi: true }

@@ -11,6 +11,6 @@ const diaSchema = mongoose.Schema({
   ],
 });
 
-const Dia = mongoose.model("Dia", diaSchema);
+const DiaModel = mongoose.model("Dia", diaSchema);
 
-export default Dia;
+export default DiaModel;

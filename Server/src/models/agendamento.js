@@ -9,6 +9,6 @@ const agendamentoSchema = mongoose.Schema({
   realized: { type: Boolean, default: false },
 });
 
-const Agendamento = mongoose.model("Agendamento", agendamentoSchema);
+const AgendamentoModel = mongoose.model("Agendamento", agendamentoSchema);
 
-export default Agendamento;
+export default AgendamentoModel;
