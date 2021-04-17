@@ -18,7 +18,7 @@ class DiaController {
   async getWeek(req, res) {
     const { week } = req.params;
     const days = await DiaModel.find();
-    const data = getWeekSchedules(week);
+    const data = getWeekSchedules(week, days);
     res.status(200).json(data);
   }
 

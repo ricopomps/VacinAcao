@@ -4,8 +4,13 @@ import moment from "moment";
 import mongoose from "mongoose";
 
 class AgendamentoController {
-  async getAgendamentos(req, res) {
-    const { name = "", page = 1, limit = 15, isHistorico = false } = req.query;
+  async getAgendamentos(filtros) {
+    const {
+      name = "",
+      page = 1,
+      limit = 15,
+      isHistorico = false,
+    } = filtros.query;
 
     try {
       const agendamento = await AgendamentoModel.find({
@@ -21,11 +26,13 @@ class AgendamentoController {
         name: new RegExp(name, "i"),
         realized: isHistorico,
       });
-      res.status(200).json({ agendamentos: agendamento, count: count });
+      return {
+        statusCode: 200,
+        body: { agendamentos: agendamento, count: count },
+      };
     } catch (error) {
       console.log(error);
-
-      res.status(404).json({ message: error.message });
+      return { statusCode: 500, body: { message: error.message } };
     }
   }
 
