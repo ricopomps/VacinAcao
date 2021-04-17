@@ -48,7 +48,8 @@ export const check = (interval, day) => {
     if (schedules.length > 1) {
       const idosos = schedules.filter(
         (schedule) =>
-          moment().diff(moment(schedule.pacientAge, "DD/MM/yyyy"), "years") > 60
+          moment().diff(moment(schedule.pacientAge, "DD/MM/yyyy"), "years") >=
+          60
       );
       if (idosos.length > 1) {
         return "danger";
