@@ -28,6 +28,13 @@ describe("Teste check", () => {
     });
     expect(response).toBe("danger");
   });
+  it("Mesmo dia e marcação passada retorna danger", () => {
+    const response = check("00:00", {
+      day: moment().format("DD/MM/yyyy"),
+      schedules: [],
+    });
+    expect(response).toBe("danger");
+  });
   it("Dia futuro sem marcações retorna success", () => {
     const response = check("08:00 - 08:30", {
       day: moment().add(1, "days").format("DD/MM/yyyy"),
@@ -66,5 +73,17 @@ describe("Teste check", () => {
       ],
     });
     expect(response).toBe("danger");
+  });
+  it("Dia futuro com uma vaga retorna warning", () => {
+    const response = check("08:00 - 08:30", {
+      day: moment().add(1, "days").format("DD/MM/yyyy"),
+      schedules: [
+        {
+          schedule: "08:00 - 08:30",
+          pacientAge: moment().subtract(60, "years").format("DD/MM/yyyy"),
+        },
+      ],
+    });
+    expect(response).toBe("warning");
   });
 });

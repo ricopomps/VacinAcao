@@ -2,9 +2,7 @@ import moment from "moment";
 import DiaModel from "../models/dia.js";
 import mongoose from "mongoose";
 
-export const getWeekSchedules = async (week = 0) => {
-  const days = await DiaModel.find();
-
+export const getWeekSchedules = (week = 0, days) => {
   const emptyWeek = getCurrentWeek(week).map((day) =>
     moment(day.date, "DD/MM/yyyy")
   );
