@@ -4,34 +4,48 @@ import moment from "moment";
 import { getWeekSchedules } from "../utils/publicUtils.js";
 
 class DiaController {
-  async getDias(req, res) {
+  async getDias(req) {
     try {
       const dias = await DiaModel.find();
-      res.status(200).json(dias);
+      return {
+        statusCode: 200,
+        body: dias,
+      };
     } catch (error) {
       console.log(error);
-
-      res.status(404).json({ message: error.message });
+      return {
+        statusCode: 404,
+        body: { message: error.message },
+      };
     }
   }
 
-  async getWeek(req, res) {
+  async getWeek(req) {
     const { week } = req.params;
     const days = await DiaModel.find();
     const data = getWeekSchedules(week, days);
-    res.status(200).json(data);
+    return {
+      statusCode: 200,
+      body: data,
+    };
   }
 
-  async getDia(req, res) {
+  async getDia(req) {
     const { dia } = req.params;
     try {
       const diaSelecionado = await DiaModel.find({
         date: moment(dia, "DDMMyyyy").format("DD/MM/yyyy"),
       });
-      res.status(200).json(diaSelecionado);
+      return {
+        statusCode: 200,
+        body: diaSelecionado,
+      };
     } catch (error) {
       console.log(error);
-      res.status(400).json({ message: error.message });
+      return {
+        statusCode: 200,
+        body: { message: error.message },
+      };
     }
   }
 }

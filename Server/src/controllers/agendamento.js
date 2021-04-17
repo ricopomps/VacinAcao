@@ -36,7 +36,7 @@ class AgendamentoController {
     }
   }
 
-  async createAgendamentos(req, res) {
+  async createAgendamentos(req) {
     const agendamento = req.body;
     const newAgendamento = new AgendamentoModel(agendamento);
     try {
@@ -49,12 +49,16 @@ class AgendamentoController {
           ) &&
           moment().isAfter(moment(newAgendamento.schedule, "HH:mm"))
         ) {
-          return res.json({
-            message: "Não é possível escolher uma data passada",
-          });
+          return {
+            statusCode: 200,
+            body: { message: "Não é possível escolher uma data passada" },
+          };
         }
         if (dia.schedules ? dia.schedules.length > 19 : false) {
-          return res.json({ message: "Não há mais vagas para esse dia" });
+          return {
+            statusCode: 200,
+            body: { message: "Não há mais vagas para esse dia" },
+          };
         }
         if (dia.schedules) {
           if (
@@ -79,10 +83,10 @@ class AgendamentoController {
                   ) > 60
               );
               if (idosos.length > 1) {
-                return res.json({
-                  message: "Não há mais vagas para esse horário",
-                });
-                return;
+                return {
+                  statusCode: 200,
+                  body: { message: "Não há mais vagas para esse horário" },
+                };
               }
               if (age > 60) {
                 const schedulesOrdenado = dia.schedules.sort(
@@ -96,9 +100,12 @@ class AgendamentoController {
                   schedulesOrdenado[0].pacientId
                 );
               } else {
-                return res.json({
-                  message: "Vaga exclusiva para pessoas acimas de 60 anos",
-                });
+                return {
+                  statusCode: 200,
+                  body: {
+                    message: "Vaga exclusiva para pessoas acimas de 60 anos",
+                  },
+                };
               }
             }
           }
@@ -126,19 +133,29 @@ class AgendamentoController {
           }
         }
       );
-      res.status(201).json(agendamento);
+      return {
+        statusCode: 201,
+        body: agendamento,
+      };
     } catch (error) {
       console.log(error);
-      return res.status(404).json({ message: error.message });
+      return {
+        statusCode: 404,
+        body: { message: error.message },
+      };
     }
   }
 
-  async updateAgendamento(req, res) {
+  async updateAgendamento(req) {
     const { id: _id } = req.params;
     const agendamento = req.body;
     try {
-      if (!mongoose.Types.ObjectId.isValid(_id))
-        return res.status(404).send("Agendamento não encontrado");
+      if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return {
+          statusCode: 404,
+          body: { message: "Agendamento não encontrado" },
+        };
+      }
 
       const updatedAgendamento = await AgendamentoModel.findByIdAndUpdate(
         _id,
@@ -147,19 +164,28 @@ class AgendamentoController {
           new: true,
         }
       );
-
-      res.status(200).json(updatedAgendamento);
+      return {
+        statusCode: 200,
+        body: updatedAgendamento,
+      };
     } catch (error) {
       console.log(error);
-      return res.status(400).json({ message: error.message });
+      return {
+        statusCode: 400,
+        body: { message: error.message },
+      };
     }
   }
 
-  async deleteAgendamento(req, res) {
+  async deleteAgendamento(req) {
     const { id: _id } = req.params;
     try {
-      if (!mongoose.Types.ObjectId.isValid(_id))
-        return res.status(404).send("Agendamento não encontrado");
+      if (!mongoose.Types.ObjectId.isValid(_id)) {
+        return {
+          statusCode: 404,
+          body: { message: "Agendamento não encontrado" },
+        };
+      }
 
       const agendamento = await AgendamentoModel.findOne({ _id: _id });
       await AgendamentoModel.findByIdAndRemove(_id);
@@ -168,11 +194,16 @@ class AgendamentoController {
         { $pull: { schedules: { pacientId: _id } } },
         { safe: true, multi: true }
       );
-
-      return res.status(200).json({ message: "Deleted" });
+      return {
+        statusCode: 200,
+        body: { message: "Deleted" },
+      };
     } catch (error) {
       console.log(error);
-      return res.status(400).json({ message: error.message });
+      return {
+        statusCode: 400,
+        body: { message: error.message },
+      };
     }
   }
 }

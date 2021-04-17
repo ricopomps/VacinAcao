@@ -5,8 +5,8 @@ import AgendamentoController from "../controllers/agendamento.js";
 const router = express.Router();
 
 router.get("/", adaptRoute(AgendamentoController.getAgendamentos));
-router.post("/", AgendamentoController.createAgendamentos);
-router.patch("/:id", AgendamentoController.updateAgendamento);
-router.delete("/:id", AgendamentoController.deleteAgendamento);
+router.post("/", adaptRoute(AgendamentoController.createAgendamentos));
+router.patch("/:id", adaptRoute(AgendamentoController.updateAgendamento));
+router.delete("/:id", adaptRoute(AgendamentoController.deleteAgendamento));
 
 export default router;
