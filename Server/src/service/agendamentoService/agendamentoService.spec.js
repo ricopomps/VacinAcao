@@ -1,14 +1,17 @@
 import mongoose from "mongoose";
 import AgendamentoModel from "../../models/agendamento.js";
+import AgendamentoService from "./AgendamentoService";
+import DiaModel from "../../models/dia.js";
 import dotenv from "dotenv";
+import moment from "moment";
 dotenv.config();
 
 beforeAll(async () => {
   // Connect to a Mongo DB
-  const CONNECTION_URL = process.env.CONNECTION_URL;
-  await mongoose.connect(CONNECTION_URL, { useNewUrlParser: true });
+  const CONNECTION_URL_TEST = process.env.CONNECTION_URL_TEST;
+  await mongoose.connect(CONNECTION_URL_TEST, { useNewUrlParser: true });
 });
-describe("Teste do agendamento service", () => {
+describe("Teste do banco de dados", () => {
   it("Agendamento pode ser criado, atualizado e deletado", async () => {
     const newAgendamento = new AgendamentoModel({
       name: "nome_valido",
@@ -42,27 +45,61 @@ describe("Teste do agendamento service", () => {
   });
 });
 
-// it('Should save user to database', async done => {
-//   const res = await request.post('/signup')
-// 	.send({
-//       name: 'Zell',
-//       email: 'testing@gmail.com'
-//     })
+describe("Teste do getAgendamentos", () => {
+  it("Retorna um objeto quando não for passado filtros", async () => {
+    const response = await AgendamentoService.getAgendamentos({});
+    expect(response).toStrictEqual({
+      body: { agendamentos: [], count: 0 },
+      statusCode: 200,
+    });
+  });
+  it("Retorna o objeto correto de acordo com os parametros", async () => {
+    const newAgendamento = new AgendamentoModel({
+      name: "usuario_teste",
+      age: "01/01/2001",
+      date: "01/01/2001",
+      description: "",
+      schedule: "08:00 - 08:30",
+      realized: false,
+    });
 
-//   // Searches the user in the database
-//   const user = await User.findOne({ email: 'testing@gmail.com' })
+    const res = await newAgendamento.save();
+    const response = await AgendamentoService.getAgendamentos({
+      name: "usuario_teste",
+    });
+    expect(response.body.agendamentos[0]._id).toStrictEqual(res._id);
+    expect(response.body.agendamentos[0].name).toBe(newAgendamento.name);
+    expect(response.body.agendamentos[0].age).toBe(newAgendamento.age);
+    expect(response.body.agendamentos[0].date).toBe(newAgendamento.date);
+    expect(response.body.agendamentos[0].description).toBe(
+      newAgendamento.description
+    );
+    expect(response.body.agendamentos[0].schedule).toBe(
+      newAgendamento.schedule
+    );
+    expect(response.body.agendamentos[0].realized).toBe(
+      newAgendamento.realized
+    );
+  });
+});
+describe("Teste do createAgendamentos", () => {
+  it("Cria um agendamento e o encontra", async () => {
+    const newAgendamento = {
+      name: "usuario_teste",
+      age: "01/01/2001",
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamento
+    );
+    expect(response.body).toBe(newAgendamento);
+  });
+});
+// expect(response.body.agendamentos).toStrictEqual([]);
 
-//   done()
-// })
-
-// async function removeAllCollections() {
-//   const collections = Object.keys(mongoose.connection.collections);
-//   for (const collectionName of collections) {
-//     const collection = mongoose.connection.collections[collectionName];
-//     await collection.deleteMany();
-//   }
-// }
-
-// afterEach(async () => {
-//   await removeAllCollections();
-// });
+afterAll(async () => {
+  mongoose.connection.db.dropDatabase();
+  mongoose.disconnect();
+});
