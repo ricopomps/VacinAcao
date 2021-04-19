@@ -119,7 +119,7 @@ class AgendamentoService {
       });
 
       await newAgendamento.save();
-      DiaModel.findOneAndUpdate(
+      await DiaModel.findOneAndUpdate(
         { date: newDay.date },
         { date: newDay.date, $push: { schedules: newDay.schedules } },
         { new: true, upsert: true },
