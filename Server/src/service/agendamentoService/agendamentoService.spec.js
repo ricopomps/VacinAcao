@@ -246,7 +246,6 @@ describe("Teste do createAgendamentos", () => {
     };
 
     for (let i = 0; i < 20; i++) {
-      console.log(i);
       await AgendamentoService.createAgendamentos(newAgendamento);
       newAgendamento.schedule = moment(
         moment(newAgendamento.schedule, "HH:mm")
