@@ -33,26 +33,30 @@ class AgendamentoService {
   async createAgendamentos(agendamento) {
     try {
       const newAgendamento = new AgendamentoModel(agendamento);
+
+      if (
+        moment(agendamento.date, "DD/MM/yyyy").isSameOrBefore(
+          moment(moment(), "DD/MM/yyyy"),
+          "day"
+        ) &&
+        moment().isAfter(moment(newAgendamento.schedule, "HH:mm"))
+      ) {
+        return {
+          statusCode: 200,
+          body: { message: "Não é possível escolher uma data passada" },
+        };
+      }
+
       const dia = await DiaModel.findOne({ date: newAgendamento.date });
+
       if (dia) {
-        if (
-          moment(dia.date, "DD/MM/yyyy").isSameOrBefore(
-            moment(moment(), "DD/MM/yyyy"),
-            "day"
-          ) &&
-          moment().isAfter(moment(newAgendamento.schedule, "HH:mm"))
-        ) {
-          return {
-            statusCode: 200,
-            body: { message: "Não é possível escolher uma data passada" },
-          };
-        }
         if (dia.schedules ? dia.schedules.length > 19 : false) {
           return {
             statusCode: 200,
             body: { message: "Não há mais vagas para esse dia" },
           };
         }
+
         if (dia.schedules) {
           if (
             dia.schedules.find(
@@ -62,6 +66,7 @@ class AgendamentoService {
             const schedules = dia.schedules.filter(
               (schedule) => schedule.schedule === newAgendamento.schedule
             );
+
             if (schedules.length > 1) {
               const age = moment().diff(
                 moment(newAgendamento.age, "DD/MM/yyyy"),
@@ -73,7 +78,7 @@ class AgendamentoService {
                   moment().diff(
                     moment(schedule.pacientAge, "DD/MM/yyyy"),
                     "years"
-                  ) > 60
+                  ) >= 60
               );
               if (idosos.length > 1) {
                 return {
@@ -81,7 +86,7 @@ class AgendamentoService {
                   body: { message: "Não há mais vagas para esse horário" },
                 };
               }
-              if (age > 60) {
+              if (age >= 60) {
                 const schedulesOrdenado = dia.schedules.sort(
                   (a, b) => (a, b) => {
                     moment(moment(a.age, "DD/MM/yyyy")).diff(
