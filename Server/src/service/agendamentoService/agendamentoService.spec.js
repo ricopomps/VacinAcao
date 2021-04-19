@@ -7,10 +7,10 @@ import moment from "moment";
 dotenv.config();
 
 beforeAll(async () => {
-  // Connect to a Mongo DB
   const CONNECTION_URL_TEST = process.env.CONNECTION_URL_TEST;
   await mongoose.connect(CONNECTION_URL_TEST, { useNewUrlParser: true });
 });
+
 describe("Teste do banco de dados", () => {
   it("Agendamento pode ser criado, atualizado e deletado", async () => {
     const newAgendamento = new AgendamentoModel({
@@ -245,7 +245,8 @@ describe("Teste do createAgendamentos", () => {
       schedule: "08:00 - 08:30",
     };
 
-    for (let i = 0; i < 18; i++) {
+    for (let i = 0; i < 20; i++) {
+      console.log(i);
       await AgendamentoService.createAgendamentos(newAgendamento);
       newAgendamento.schedule = moment(
         moment(newAgendamento.schedule, "HH:mm")
