@@ -115,6 +115,24 @@ describe("Teste do createAgendamentos", () => {
     });
   });
 
+  it("Não permite a criação de agendamentos com mesma data porém horário já passado", async () => {
+    const newAgendamento = {
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().format("DD/MM/yyyy"),
+      description: "",
+      schedule: moment().subtract(1, "hours").format("HH:mm"),
+    };
+
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamento
+    );
+
+    expect(response.body).toStrictEqual({
+      message: "Não é possível escolher uma data passada",
+    });
+  });
+
   it("Não permite cadastro de cidadão se já houver dois outros cidadões no mesmo horário, todos com menos de 60 anos", async () => {
     const newAgendamento = {
       name: "usuario_teste",
@@ -215,6 +233,30 @@ describe("Teste do createAgendamentos", () => {
 
     expect(response.body).toStrictEqual({
       message: "Não há mais vagas para esse horário",
+    });
+  });
+
+  it("Não permitir que tenha mais de 20 agendamentos no mesmo dia", async () => {
+    const newAgendamento = {
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(10, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+
+    for (let i = 0; i < 18; i++) {
+      await AgendamentoService.createAgendamentos(newAgendamento);
+      newAgendamento.schedule = moment(
+        moment(newAgendamento.schedule, "HH:mm")
+      ).add(30, "minutes");
+    }
+
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamento
+    );
+    expect(response.body).toStrictEqual({
+      message: "Não há mais vagas para esse dia",
     });
   });
 });
