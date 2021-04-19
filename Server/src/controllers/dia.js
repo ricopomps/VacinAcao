@@ -5,10 +5,6 @@ import { getWeekSchedules } from "../utils/publicUtils.js";
 import DiaService from "../service/diaService/diaService.js";
 
 class DiaController {
-  async getDias() {
-    return await DiaService.getDias();
-  }
-
   async getWeek(filtro) {
     const { week = 0 } = filtro.params;
     if (isNaN(week)) {
@@ -18,11 +14,6 @@ class DiaController {
       };
     }
     return await DiaService.getWeek(week);
-  }
-
-  async getDia(filtro) {
-    const { dia } = filtro.params;
-    return await DiaService.getDia(dia);
   }
 }
 export default new DiaController();

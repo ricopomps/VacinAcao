@@ -13,7 +13,6 @@ export const fetchAgendamentos = (
   API.get(
     `/agendamento?name=${name}&page=${currentPage}&limit=${limit}&isHistorico=${isHistorico}`
   );
-export const getDay = () => API.get("/dia");
 export const getWeek = (numWeek) => API.get(`/dia/week/${numWeek}`);
 export const createAgendamento = (newAgendamento) =>
   API.post("/agendamento", newAgendamento);
