@@ -15,8 +15,8 @@ describe("Teste do banco de dados", () => {
   it("Agendamento pode ser criado, atualizado e deletado", async () => {
     const newAgendamento = new AgendamentoModel({
       name: "nome_valido",
-      age: "01/01/2001",
-      date: "01/01/2001",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
       description: "",
       schedule: "08:00 - 08:30",
       realized: false,
@@ -56,8 +56,8 @@ describe("Teste do getAgendamentos", () => {
   it("Retorna o objeto correto de acordo com os parametros", async () => {
     const newAgendamento = new AgendamentoModel({
       name: "usuario_teste",
-      age: "01/01/2001",
-      date: "01/01/2001",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
       description: "",
       schedule: "08:00 - 08:30",
       realized: false,
@@ -86,7 +86,7 @@ describe("Teste do createAgendamentos", () => {
   it("Cria um agendamento e o encontra", async () => {
     const newAgendamento = {
       name: "usuario_teste",
-      age: "01/01/2001",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
       date: moment().add(1, "days").format("DD/MM/yyyy"),
       description: "",
       schedule: "08:00 - 08:30",
@@ -96,8 +96,103 @@ describe("Teste do createAgendamentos", () => {
     );
     expect(response.body).toBe(newAgendamento);
   });
+
+  it("Não permite a criação de agendamentos com datas passadas", async () => {
+    const newAgendamento = {
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().subtract(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamento
+    );
+
+    expect(response.body).toStrictEqual({
+      message: "Não é possível escolher uma data passada",
+    });
+  });
+
+  it("Não permite cadastro de cidadão se já houver dois outros cidadões no mesmo horário, todos com menos de 60 anos", async () => {
+    const newAgendamento = {
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+
+    await AgendamentoService.createAgendamentos(newAgendamento);
+    await AgendamentoService.createAgendamentos(newAgendamento);
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamento
+    );
+
+    expect(response.body).toStrictEqual({
+      message: "Vaga exclusiva para pessoas acimas de 60 anos",
+    });
+  });
+
+  it("Permite cadastrar idoso quando exitem duas pessoas que não sejam idosas no mesmo horário", async () => {
+    const newAgendamento = {
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+
+    await AgendamentoService.createAgendamentos(newAgendamento);
+    await AgendamentoService.createAgendamentos(newAgendamento);
+
+    const newAgendamentoIdoso = {
+      name: "usuario_teste",
+      age: moment().subtract(60, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamentoIdoso
+    );
+
+    expect(response.body).toBe(newAgendamentoIdoso);
+  });
+
+  it("Remove o cidadão mais novo quando um idoso se cadastra numa vaga que já possui duas pessoas", async () => {
+    const newAgendamento = {
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+
+    await AgendamentoService.createAgendamentos(newAgendamento);
+    newAgendamento.age = moment().subtract(15, "years").format("DD/MM/yyyy");
+    await AgendamentoService.createAgendamentos(newAgendamento);
+
+    const newAgendamentoIdoso = {
+      name: "usuario_teste",
+      age: moment().subtract(60, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "08:00 - 08:30",
+    };
+
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamentoIdoso
+    );
+    const agendamento = await AgendamentoModel.findOne({
+      age: moment().subtract(15, "years").format("DD/MM/yyyy"),
+    });
+
+    expect(agendamento).toBe(null);
+  });
 });
-// expect(response.body.agendamentos).toStrictEqual([]);
 
 afterAll(async () => {
   mongoose.connection.db.dropDatabase();
