@@ -15,7 +15,6 @@ describe("Teste do service do dia", () => {
     for (let i = 0; i < 7; i++) {
       const response = await DiaService.getWeek(i);
       expect(response.body.length).toBe(7);
-      console.log(response.body);
     }
   });
 });
