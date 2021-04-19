@@ -261,6 +261,42 @@ describe("Teste do createAgendamentos", () => {
   });
 });
 
+describe("Teste do updateAgendamento", () => {
+  it("Criando e atualizando um agendamento", async () => {
+    const newAgendamento = new AgendamentoModel({
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(10, "days").format("DD/MM/yyyy"),
+      schedule: "08:00 - 08:30",
+    });
+    const created = await newAgendamento.save();
+    newAgendamento.description = "Description";
+    newAgendamento.realized = true;
+
+    const response = await AgendamentoService.updateAgendamento(
+      created._id,
+      newAgendamento
+    );
+    expect(response.body.description).toBe("Description");
+    expect(response.body.realized).toBe(true);
+  });
+});
+
+describe("Teste do deleteAgendamento", () => {
+  it("Criando e deletando um agendamento", async () => {
+    const newAgendamento = new AgendamentoModel({
+      name: "usuario_teste",
+      age: moment().subtract(30, "years").format("DD/MM/yyyy"),
+      date: moment().add(10, "days").format("DD/MM/yyyy"),
+      schedule: "08:00 - 08:30",
+    });
+    const created = await newAgendamento.save();
+
+    const response = await AgendamentoService.deleteAgendamento(created._id);
+    expect(response.body).toStrictEqual({ message: "Deleted" });
+  });
+});
+
 afterAll(async () => {
   mongoose.connection.db.dropDatabase();
   mongoose.disconnect();
