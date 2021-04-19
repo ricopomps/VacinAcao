@@ -122,15 +122,9 @@ class AgendamentoService {
       await DiaModel.findOneAndUpdate(
         { date: newDay.date },
         { date: newDay.date, $push: { schedules: newDay.schedules } },
-        { new: true, upsert: true },
-        (error, data) => {
-          if (error) {
-            console.log(error);
-          } else {
-            // console.log(data);
-          }
-        }
+        { new: true, upsert: true }
       );
+
       return {
         statusCode: 201,
         body: agendamento,
