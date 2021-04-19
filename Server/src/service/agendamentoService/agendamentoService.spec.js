@@ -192,6 +192,31 @@ describe("Teste do createAgendamentos", () => {
 
     expect(agendamento).toBe(null);
   });
+
+  it("Não permitir que um idoso se cadastre caso já possua dois outros idosos no mesmo horário", async () => {
+    const newAgendamentoIdoso = {
+      name: "usuario_velho 1",
+      age: moment().subtract(60, "years").format("DD/MM/yyyy"),
+      date: moment().add(1, "days").format("DD/MM/yyyy"),
+      description: "",
+      schedule: "11:00 - 11:30",
+    };
+
+    const response3 = await AgendamentoService.createAgendamentos(
+      newAgendamentoIdoso
+    );
+    const response4 = await AgendamentoService.createAgendamentos(
+      newAgendamentoIdoso
+    );
+
+    const response = await AgendamentoService.createAgendamentos(
+      newAgendamentoIdoso
+    );
+
+    expect(response.body).toStrictEqual({
+      message: "Não há mais vagas para esse horário",
+    });
+  });
 });
 
 afterAll(async () => {
