@@ -24,3 +24,5 @@ mongoose
   .catch((error) => console.error(error));
 
 mongoose.set("useFindAndModify", false);
+
+export default app;
