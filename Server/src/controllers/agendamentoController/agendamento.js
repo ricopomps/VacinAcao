@@ -39,13 +39,17 @@ class AgendamentoController {
     return await AgendamentoService.createAgendamentos(agendamento);
   }
 
-  async updateAgendamento({ params: { id: _id }, body: agendamento }) {
+  async updateAgendamento(req) {
+    const { id: _id } = req.params;
+    const agendamento = req.body;
     if (!mongoose.Types.ObjectId.isValid(_id)) {
       return {
         statusCode: 404,
         body: { message: "Agendamento não encontrado" },
       };
     }
+    requiredAgendamentoFields.push("realized");
+    requiredAgendamentoFields.push("description");
     for (const field of requiredAgendamentoFields) {
       if (!agendamento[field]) {
         return {
