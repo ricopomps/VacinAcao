@@ -7,11 +7,20 @@ import request from "supertest";
 import app from "../../index.js";
 dotenv.config();
 
-describe("Teste do banco de dados", () => {
-  it("Agendamento pode ser criado, atualizado e deletado", async () => {
+beforeAll(async () => {
+  process.env.NODE_ENV = "test";
+
+  const CONNECTION_URL_TEST = process.env.CONNECTION_URL_TEST;
+  await mongoose.connect(CONNECTION_URL_TEST, { useNewUrlParser: true });
+
+  await mongoose.connection.db.dropDatabase();
+});
+
+describe("Teste do Controller", () => {
+  it("Recebe status 200 e 0 agendamentos", async () => {
     const res = await request(app).get("/api/agendamento/");
 
     expect(res.status).toBe(200);
-    expect(res.body.count).toBe(77);
+    expect(res.body.count).toBe(0);
   });
 });

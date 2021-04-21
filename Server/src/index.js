@@ -14,14 +14,19 @@ app.use("/api/dia", diaRoutes);
 
 const PORT = process.env.PORT;
 const CONNECTION_URL = process.env.CONNECTION_URL;
-
-mongoose
-  .connect(CONNECTION_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => app.listen(PORT, () => console.log(`Server running ${PORT}`)))
-  .catch((error) => console.error(error));
+const CONNECTION_URL_TEST = process.env.CONNECTION_URL_TEST;
+const NODE_ENV = process.env.NODE_ENV;
+if (NODE_ENV !== "test") {
+  mongoose
+    .connect(CONNECTION_URL, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    .then(() => app.listen(PORT, () => console.log(`Server running ${PORT}`)))
+    .catch((error) => console.error(error));
+} else {
+  app.listen(PORT + 1, () => console.log(`Server running ${PORT + 1}`));
+}
 
 mongoose.set("useFindAndModify", false);
 
