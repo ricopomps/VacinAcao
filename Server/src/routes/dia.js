@@ -1,6 +1,6 @@
 import express from "express";
 import { adaptRoute } from "../middleware/adaptRoute.js";
-import DiaController from "../controllers/dia.js";
+import DiaController from "../controllers/diaController/dia.js";
 
 const router = express.Router();
 

@@ -1,6 +1,6 @@
 import express from "express";
 import { adaptRoute } from "../middleware/adaptRoute.js";
-import AgendamentoController from "../controllers/agendamento.js";
+import AgendamentoController from "../controllers/agendamentoController/agendamento.js";
 
 const router = express.Router();
 

@@ -1,8 +1,8 @@
-import DiaModel from "../models/dia.js";
+import DiaModel from "../../models/dia.js";
 import mongoose from "mongoose";
 import moment from "moment";
-import { getWeekSchedules } from "../utils/publicUtils.js";
-import DiaService from "../service/diaService/diaService.js";
+import { getWeekSchedules } from "../../utils/publicUtils.js";
+import DiaService from "../../service/diaService/diaService.js";
 
 class DiaController {
   async getWeek(filtro) {

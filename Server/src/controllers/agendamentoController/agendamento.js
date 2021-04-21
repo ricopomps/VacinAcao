@@ -1,8 +1,8 @@
-import AgendamentoModel from "../models/agendamento.js";
-import DiaModel from "../models/dia.js";
+import AgendamentoModel from "../../models/agendamento.js";
+import DiaModel from "../../models/dia.js";
 import moment from "moment";
 import mongoose from "mongoose";
-import AgendamentoService from "../service/agendamentoService/agendamentoService.js";
+import AgendamentoService from "../../service/agendamentoService/agendamentoService.js";
 
 const requiredAgendamentoFields = ["name", "age", "schedule", "date"];
 
