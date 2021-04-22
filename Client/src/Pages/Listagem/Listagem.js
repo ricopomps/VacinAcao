@@ -65,12 +65,14 @@ const Listagem = (props) => {
       <Table size="sm" striped bordered hover>
         <thead>
           <tr>
-            <th>#</th>
-            <th>Nome</th>
+            <th style={{ width: "80px" }}>#</th>
+            <th style={{ width: "500px" }}>Nome</th>
             <th>Data de nascimento</th>
             <th>Dia</th>
             <th>Horário</th>
-            {isHistorico && <th>Descrição do atendimento</th>}
+            {isHistorico && (
+              <th style={{ width: "100px" }}>Descrição do atendimento</th>
+            )}
             <th>Atendimento</th>
           </tr>
         </thead>
