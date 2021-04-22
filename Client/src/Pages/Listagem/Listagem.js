@@ -71,7 +71,7 @@ const Listagem = (props) => {
             <th>Dia</th>
             <th>Horário</th>
             {isHistorico && (
-              <th style={{ width: "100px" }}>Descrição do atendimento</th>
+              <th style={{ width: "500px" }}>Descrição do atendimento</th>
             )}
             <th>Atendimento</th>
           </tr>
