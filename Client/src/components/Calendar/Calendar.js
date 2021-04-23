@@ -17,15 +17,23 @@ const Calendar = () => {
     "Sexta",
     "Sábado",
   ];
+
+  const legenda = {
+    livre: "success",
+    umaVaga: "warning",
+    apenasIdosos: "primary",
+    semVagas: "danger",
+  };
+
   const getTooltip = (check) => {
     switch (check) {
-      case "success":
+      case legenda.livre:
         return "Livre";
-      case "warning":
+      case legenda.umaVaga:
         return "Uma vaga";
-      case "primary":
+      case legenda.apenasidosos:
         return "Apenas idosos";
-      case "danger":
+      case legenda.semVagas:
         return "Sem vagas";
       default:
         return "Agendamento";
@@ -44,7 +52,7 @@ const Calendar = () => {
       ) &&
         moment().isAfter(moment(interval, "HH:mm")))
     ) {
-      return "danger";
+      return legenda.semVagas;
     }
 
     if (day.schedules.find((schedule) => schedule.schedule === interval)) {
@@ -58,13 +66,13 @@ const Calendar = () => {
             60
         );
         if (idosos.length > 1) {
-          return "danger";
+          return legenda.semVagas;
         }
-        return "primary";
+        return legenda.apenasIdosos;
       }
-      return "warning";
+      return legenda.umaVaga;
     } else {
-      return "success";
+      return legenda.livre;
     }
   };
   return (
@@ -111,7 +119,7 @@ const Calendar = () => {
                   <CalendarDay
                     vacancy={check(interval, day)}
                     tooltip={getTooltip(check(interval, day))}
-                    disabled={check(interval, day) === "danger"}
+                    disabled={check(interval, day) === legenda.semVagas}
                     onClick={() => {
                       dispatch({
                         type: "SET_FORM",
