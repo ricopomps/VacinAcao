@@ -47,10 +47,10 @@ const Calendar = () => {
           </tr>
         </thead>
         <tbody>
-          {prepareIntervals().map((interval) => (
-            <tr key={Math.random()}>
-              {week.map((day) => (
-                <td key={Math.random()}>
+          {prepareIntervals().map((interval, index) => (
+            <tr key={index}>
+              {week.map((day, index) => (
+                <td key={index}>
                   <CalendarDay
                     vacancy={check(interval, day)}
                     tooltip={getTooltip(check(interval, day))}
