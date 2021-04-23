@@ -51,26 +51,29 @@ const Calendar = () => {
         <tbody>
           {prepareIntervals().map((interval, index) => (
             <tr key={index}>
-              {week.map((day, index) => (
-                <td key={index}>
-                  <CalendarDay
-                    vacancy={check(interval, day)}
-                    tooltip={getTooltip(check(interval, day))}
-                    disabled={check(interval, day) === legenda.semVagas}
-                    onClick={() => {
-                      dispatch({
-                        type: SET_FORM,
-                        payload: {
-                          schedule: interval,
-                          date: moment(day.day, "DD/MM/YYYY").toDate(),
-                        },
-                      });
-                    }}
-                  >
-                    {interval}
-                  </CalendarDay>
-                </td>
-              ))}
+              {week.map((day, index) => {
+                const checking = check(interval, day);
+                return (
+                  <td key={index}>
+                    <CalendarDay
+                      vacancy={checking}
+                      tooltip={getTooltip(checking)}
+                      disabled={checking === legenda.semVagas}
+                      onClick={() => {
+                        dispatch({
+                          type: SET_FORM,
+                          payload: {
+                            schedule: interval,
+                            date: moment(day.day, "DD/MM/YYYY").toDate(),
+                          },
+                        });
+                      }}
+                    >
+                      {interval}
+                    </CalendarDay>
+                  </td>
+                );
+              })}
             </tr>
           ))}
         </tbody>
