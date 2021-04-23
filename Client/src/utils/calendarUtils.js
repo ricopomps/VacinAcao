@@ -1,5 +1,5 @@
 import moment from "moment";
-import { legenda } from "../constants/mainConstants";
+import { legenda, dateFormat } from "../constants/mainConstants";
 
 export const getTooltip = (check) => {
   switch (check) {
@@ -18,14 +18,8 @@ export const getTooltip = (check) => {
 export const check = (interval, day) => {
   if (
     day.schedules.length > 19 ||
-    moment(day.day, "DD/MM/yyyy").isBefore(
-      moment(moment(), "DD/MM/yyyy"),
-      "day"
-    ) ||
-    (moment(day.day, "DD/MM/yyyy").isSame(
-      moment(moment(), "DD/MM/yyyy"),
-      "day"
-    ) &&
+    moment(day.day, dateFormat).isBefore(moment(moment(), dateFormat), "day") ||
+    (moment(day.day, dateFormat).isSame(moment(moment(), dateFormat), "day") &&
       moment().isAfter(moment(interval, "HH:mm")))
   ) {
     return legenda.semVagas;
@@ -38,7 +32,7 @@ export const check = (interval, day) => {
     if (schedules.length > 1) {
       const idosos = schedules.filter(
         (schedule) =>
-          moment().diff(moment(schedule.pacientAge, "DD/MM/yyyy"), "years") > 60
+          moment().diff(moment(schedule.pacientAge, dateFormat), "years") > 60
       );
       if (idosos.length > 1) {
         return legenda.semVagas;

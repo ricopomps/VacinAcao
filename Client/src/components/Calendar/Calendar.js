@@ -8,6 +8,7 @@ import { check, getTooltip } from "../../utils/calendarUtils";
 import CalendarDay from "./CalendarDay/CalendarDay";
 import PaginationComponent from "../../components/Pagination/Pagination";
 import { CHANGE_WEEK, SET_FORM } from "../../constants/reducerConstants";
+import { dateFormat } from "../../constants/mainConstants";
 
 const Calendar = () => {
   const [{ week, numWeek }, dispatch] = useContext(AppContext);
@@ -64,7 +65,7 @@ const Calendar = () => {
                           type: SET_FORM,
                           payload: {
                             schedule: interval,
-                            date: moment(day.day, "DD/MM/YYYY").toDate(),
+                            date: moment(day.day, dateFormat).toDate(),
                           },
                         });
                       }}

@@ -14,3 +14,5 @@ export const legenda = {
   apenasIdosos: "primary",
   semVagas: "danger",
 };
+
+export const dateFormat = "DD/MM/yyyy";

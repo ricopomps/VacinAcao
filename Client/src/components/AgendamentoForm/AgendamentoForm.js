@@ -12,10 +12,11 @@ import { validationSchema } from "./yupSchema/yupSchema";
 import { toast } from "react-toastify";
 import { Prompt } from "react-router";
 import { CREATE } from "../../constants/reducerConstants";
+import { dateFormat } from "../../constants/mainConstants";
 const AgendamentoForm = () => {
   const [{ formState }, dispatch] = useContext(AppContext);
 
-  const format = (value) => moment(value).format("DD/MM/yyyy");
+  const format = (value) => moment(value).format(dateFormat);
 
   useEffect(() => {
     window.onbeforeunload = function () {
