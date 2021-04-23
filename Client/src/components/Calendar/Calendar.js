@@ -2,7 +2,7 @@ import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import moment from "moment";
 import AppContext from "../../AppContext";
-import { diasDaSemana, legenda } from "../../Constants/mainConstants";
+import { diasDaSemana, legenda } from "../../constants/mainConstants";
 import { prepareIntervals } from "../../utils/prepareIntervals";
 import { check, getTooltip } from "../../utils/calendarUtils";
 import CalendarDay from "./CalendarDay/CalendarDay";
