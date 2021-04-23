@@ -16,3 +16,5 @@ export const legenda = {
 };
 
 export const dateFormat = "DD/MM/yyyy";
+
+export const hourFormat = "DD/mm";

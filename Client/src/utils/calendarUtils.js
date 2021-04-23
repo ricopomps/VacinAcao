@@ -1,5 +1,5 @@
 import moment from "moment";
-import { legenda, dateFormat } from "../constants/mainConstants";
+import { legenda, dateFormat, hourFormat } from "../constants/mainConstants";
 
 export const getTooltip = (check) => {
   switch (check) {
@@ -20,7 +20,7 @@ export const check = (interval, day) => {
     day.schedules.length > 19 ||
     moment(day.day, dateFormat).isBefore(moment(moment(), dateFormat), "day") ||
     (moment(day.day, dateFormat).isSame(moment(moment(), dateFormat), "day") &&
-      moment().isAfter(moment(interval, "HH:mm")))
+      moment().isAfter(moment(interval, hourFormat)))
   ) {
     return legenda.semVagas;
   }

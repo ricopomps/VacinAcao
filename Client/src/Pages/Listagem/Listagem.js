@@ -6,7 +6,7 @@ import ListItem from "../../components/ListItem/ListItem";
 import PaginationListagem from "../../components/Pagination/PaginationListagem";
 import Search from "../../components/Search/Search";
 import { SET_PAGINATION, CLEAR_SEARCH } from "../../constants/reducerConstants";
-import { dateFormat } from "../../constants/mainConstants";
+import { dateFormat, hourFormat } from "../../constants/mainConstants";
 
 const Listagem = (props) => {
   let isHistorico = false,
@@ -48,7 +48,7 @@ const Listagem = (props) => {
     return moment(a.date, dateFormat).isBefore(moment(b.date, dateFormat))
       ? moment(a.date, dateFormat).diff(moment(b.date, dateFormat))
       : a.date === b.date &&
-          moment(a.schedule, "HH:mm").diff(moment(b.schedule, "HH:mm"));
+          moment(a.schedule, hourFormat).diff(moment(b.schedule, hourFormat));
   });
 
   return (
