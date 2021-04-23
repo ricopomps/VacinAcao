@@ -1,4 +1,17 @@
 import { createContext } from "react";
+import {
+  SET_AGENDAMENTOS,
+  SET_WEEK,
+  CHANGE_WEEK,
+  SET_SEARCH,
+  CLEAR_SEARCH,
+  SET_PAGINATION,
+  SET_LIMIT,
+  SET_FORM,
+  CREATE,
+  DELETE,
+  FINALIZAR,
+} from "./constants/reducerConstants";
 const AppContext = createContext();
 
 const initialState = {
@@ -23,7 +36,7 @@ const initialState = {
 };
 const reducer = (state, action) => {
   switch (action.type) {
-    case "SET_AGENDAMENTOS": {
+    case SET_AGENDAMENTOS: {
       return {
         ...state,
         agendamentos: action.payload.agendamentos,
@@ -38,19 +51,19 @@ const reducer = (state, action) => {
         },
       };
     }
-    case "SET_WEEK": {
+    case SET_WEEK: {
       return {
         ...state,
         week: action.payload.week,
       };
     }
-    case "CHANGE_WEEK": {
+    case CHANGE_WEEK: {
       return {
         ...state,
         numWeek: action.payload.numWeek,
       };
     }
-    case "SET_SEARCH": {
+    case SET_SEARCH: {
       return {
         ...state,
         pagination: {
@@ -60,7 +73,7 @@ const reducer = (state, action) => {
         },
       };
     }
-    case "CLEAR_SEARCH": {
+    case CLEAR_SEARCH: {
       return {
         ...state,
         pagination: {
@@ -70,7 +83,7 @@ const reducer = (state, action) => {
         },
       };
     }
-    case "SET_PAGINATION": {
+    case SET_PAGINATION: {
       return {
         ...state,
         pagination: {
@@ -79,7 +92,7 @@ const reducer = (state, action) => {
         },
       };
     }
-    case "SET_LIMIT": {
+    case SET_LIMIT: {
       return {
         ...state,
         pagination: {
@@ -89,7 +102,7 @@ const reducer = (state, action) => {
         },
       };
     }
-    case "SET_FORM": {
+    case SET_FORM: {
       return {
         ...state,
         formState: {
@@ -99,13 +112,13 @@ const reducer = (state, action) => {
         },
       };
     }
-    case "CREATE": {
+    case CREATE: {
       return {
         ...state,
         temp: action.payload,
       };
     }
-    case "DELETE": {
+    case DELETE: {
       return {
         ...state,
         temp: action.payload,
@@ -117,7 +130,7 @@ const reducer = (state, action) => {
         ),
       };
     }
-    case "FINALIZAR":
+    case FINALIZAR:
       return {
         ...state,
         temp: action.payload,

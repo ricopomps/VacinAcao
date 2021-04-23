@@ -7,6 +7,8 @@ import { prepareIntervals } from "../../utils/prepareIntervals";
 import { check, getTooltip } from "../../utils/calendarUtils";
 import CalendarDay from "./CalendarDay/CalendarDay";
 import PaginationComponent from "../../components/Pagination/Pagination";
+import { CHANGE_WEEK, SET_FORM } from "../../constants/reducerConstants";
+
 const Calendar = () => {
   const [{ week, numWeek }, dispatch] = useContext(AppContext);
 
@@ -16,19 +18,19 @@ const Calendar = () => {
         onBack={() =>
           numWeek > 0 &&
           dispatch({
-            type: "CHANGE_WEEK",
+            type: CHANGE_WEEK,
             payload: { numWeek: numWeek - 1 },
           })
         }
         onCenter={() =>
           dispatch({
-            type: "CHANGE_WEEK",
+            type: CHANGE_WEEK,
             payload: { numWeek: 0 },
           })
         }
         onFront={() =>
           dispatch({
-            type: "CHANGE_WEEK",
+            type: CHANGE_WEEK,
             payload: { numWeek: numWeek + 1 },
           })
         }
@@ -57,7 +59,7 @@ const Calendar = () => {
                     disabled={check(interval, day) === legenda.semVagas}
                     onClick={() => {
                       dispatch({
-                        type: "SET_FORM",
+                        type: SET_FORM,
                         payload: {
                           schedule: interval,
                           date: moment(day.day, "DD/MM/YYYY").toDate(),

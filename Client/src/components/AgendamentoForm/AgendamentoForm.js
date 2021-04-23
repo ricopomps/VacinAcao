@@ -11,7 +11,7 @@ import { createAgendamento } from "../../api";
 import { validationSchema } from "./yupSchema/yupSchema";
 import { toast } from "react-toastify";
 import { Prompt } from "react-router";
-
+import { CREATE } from "../../constants/reducerConstants";
 const AgendamentoForm = () => {
   const [{ formState }, dispatch] = useContext(AppContext);
 
@@ -46,7 +46,7 @@ const AgendamentoForm = () => {
           if (data?.message) {
             toast.error(data.message);
           } else {
-            dispatch({ type: "CREATE", payload: data });
+            dispatch({ type: CREATE, payload: data });
             resetForm();
             toast.success("Agendamento marcado com sucesso!");
           }

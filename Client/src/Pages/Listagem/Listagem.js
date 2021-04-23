@@ -5,6 +5,7 @@ import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
 import PaginationListagem from "../../components/Pagination/PaginationListagem";
 import Search from "../../components/Search/Search";
+import { SET_PAGINATION, CLEAR_SEARCH } from "../../constants/reducerConstants";
 
 const Listagem = (props) => {
   let isHistorico = false,
@@ -32,13 +33,13 @@ const Listagem = (props) => {
   }
   const paginate = (number) => {
     dispatch({
-      type: "SET_PAGINATION",
+      type: SET_PAGINATION,
       payload: { currentPage: number },
     });
   };
   useEffect(() => {
     dispatch({
-      type: "CLEAR_SEARCH",
+      type: CLEAR_SEARCH,
     });
   }, [props.location.pathname]);
 

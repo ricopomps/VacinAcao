@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import { useDebounce } from "./hooks/useDebounce";
 import AppContext, { reducer, initialState } from "./AppContext";
 import { fetchAgendamentos, getWeek } from "./api";
-
+import { SET_AGENDAMENTOS, SET_WEEK } from "./constants/reducerConstants";
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {
@@ -25,7 +25,7 @@ const AppContextProvider = ({ children }) => {
     const { data: week } = await getWeek(numWeek);
 
     dispatch({
-      type: "SET_AGENDAMENTOS",
+      type: SET_AGENDAMENTOS,
       payload: {
         agendamentos: responseAgendamentos,
         historico: responseHistorico,
@@ -39,7 +39,7 @@ const AppContextProvider = ({ children }) => {
   const setWeek = async (numWeek) => {
     const { data: week } = await getWeek(numWeek);
     dispatch({
-      type: "SET_WEEK",
+      type: SET_WEEK,
       payload: { week: week },
     });
   };
