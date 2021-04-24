@@ -9,7 +9,7 @@ const CalendarDay = ({ onClick, children, vacancy, disabled, tooltip }) => {
     >
       <span className="d-inline-block">
         <Button
-          style={{ pointerEvents: disabled ? "none" : "" }}
+          style={{ pointerEvents: disabled && "none" }}
           variant={vacancy}
           disabled={disabled}
           onClick={onClick}
