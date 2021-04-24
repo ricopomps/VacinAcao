@@ -39,9 +39,9 @@ const Calendar = () => {
       <Table striped bordered hover size="sm">
         <thead>
           <tr>
-            {week.map((dia, index) => (
+            {diasDaSemana.map((dia, index) => (
               <th key={index}>
-                {diasDaSemana[index] +
+                {dia +
                   moment(moment().add(numWeek, "weeks").startOf("week"))
                     .add(index, "days")
                     .format(` - DD/MM`)}
