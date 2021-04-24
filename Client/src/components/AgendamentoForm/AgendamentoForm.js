@@ -88,7 +88,7 @@ const AgendamentoForm = () => {
               )}
             </Form.Group>
             <Form.Group controlId="formDate">
-              <label>Data de agendamento :</label>
+              <label>Data de agendamento:</label>
               <DatePicker minDate={new Date()} name="date" />
               {touched.date && errors.date && (
                 <div className="error-message">{errors.date}</div>
