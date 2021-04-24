@@ -3,6 +3,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
+import { legenda } from "../../constants/mainConstants";
 
 const Legenda = () => {
   return (
@@ -12,22 +13,22 @@ const Legenda = () => {
       </Container>
       <Row>
         <Col xs={5}>
-          <Button variant="success" block>
+          <Button variant={legenda.livre} block>
             LIVRE
           </Button>
           <br />
           <br />
-          <Button variant="warning" block>
+          <Button variant={legenda.umaVaga} block>
             UMA VAGA
           </Button>
         </Col>
         <Col>
-          <Button variant="primary" block>
+          <Button variant={legenda.apenasIdosos} block>
             APENAS IDOSO
           </Button>
           <br />
           <br />
-          <Button disabled variant="danger" block>
+          <Button disabled variant={legenda.semVagas} block>
             SEM VAGAS
           </Button>
         </Col>
