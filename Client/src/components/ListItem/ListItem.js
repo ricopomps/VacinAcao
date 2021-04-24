@@ -47,15 +47,15 @@ const ListItem = ({ index, agendamento, isHistorico }) => {
         <td>{agendamento.age}</td>
         <td>{agendamento.date}</td>
         <td>{agendamento.schedule}</td>
-        {isHistorico ? (
+        {isHistorico && (
           <td>
             {agendamento?.description
               ? agendamento?.description
               : "Sem descrição disponível"}
           </td>
-        ) : null}
+        )}
         <td>
-          {isHistorico ? null : (
+          {!isHistorico && (
             <Button variant="success" onClick={() => setModalShow(true)}>
               Realizado
             </Button>
