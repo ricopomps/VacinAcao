@@ -7,7 +7,7 @@ export const getTooltip = (check) => {
       return "Livre";
     case legenda.umaVaga:
       return "Uma vaga";
-    case legenda.apenasidosos:
+    case legenda.apenasIdosos:
       return "Apenas idosos";
     case legenda.semVagas:
       return "Sem vagas";
