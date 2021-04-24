@@ -9,8 +9,10 @@ const NavBar = () => {
   return (
     <Navbar bg="light" variant="light">
       <Navbar.Brand>
-        <IMAGE src={logo} />
-        <b>VacinAcao</b>
+        <Nav.Link style={{ color: "inherit" }} as={Link} to="/">
+          <IMAGE src={logo} />
+          <b>VacinAcao</b>
+        </Nav.Link>
         <Nav className="mr-auto">
           <Nav.Link as={Link} to="/">
             Agendamento
