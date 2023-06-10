@@ -2,13 +2,16 @@ import React, { useContext } from "react";
 import Table from "react-bootstrap/Table";
 import moment from "moment";
 import AppContext from "../../AppContext";
-import { diasDaSemana, legenda } from "../../constants/mainConstants";
+import {
+  diasDaSemana,
+  legenda,
+  dateFormat,
+} from "../../Constants/mainConstants";
 import { prepareIntervals } from "../../utils/prepareIntervals";
 import { check, getTooltip } from "../../utils/calendarUtils";
 import CalendarDay from "./CalendarDay/CalendarDay";
 import PaginationComponent from "../../components/Pagination/Pagination";
-import { CHANGE_WEEK, SET_FORM } from "../../constants/reducerConstants";
-import { dateFormat } from "../../constants/mainConstants";
+import { CHANGE_WEEK, SET_FORM } from "../../Constants/reducerConstants";
 
 const Calendar = () => {
   const [{ week, numWeek }, dispatch] = useContext(AppContext);

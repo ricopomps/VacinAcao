@@ -5,8 +5,8 @@ import Table from "react-bootstrap/Table";
 import ListItem from "../../components/ListItem/ListItem";
 import PaginationListagem from "../../components/Pagination/PaginationListagem";
 import Search from "../../components/Search/Search";
-import { SET_PAGINATION, CLEAR_SEARCH } from "../../constants/reducerConstants";
-import { dateFormat, hourFormat } from "../../constants/mainConstants";
+import { SET_PAGINATION, CLEAR_SEARCH } from "../../Constants/reducerConstants";
+import { dateFormat, hourFormat } from "../../Constants/mainConstants";
 
 const Listagem = (props) => {
   let isHistorico = false,

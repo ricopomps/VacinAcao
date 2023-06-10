@@ -3,7 +3,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import FormControl from "react-bootstrap/FormControl";
 import Container from "react-bootstrap/Container";
 import { Formik, Field } from "formik";
-import { SET_SEARCH, SET_LIMIT } from "../../constants/reducerConstants";
+import { SET_SEARCH, SET_LIMIT } from "../../Constants/reducerConstants";
 
 const Search = ({ value, onChange, limit }) => {
   const limits = [5, 10, 15, 20, 30, 50];

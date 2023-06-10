@@ -1,5 +1,5 @@
 import moment from "moment";
-import { legenda, dateFormat, hourFormat } from "../constants/mainConstants";
+import { legenda, dateFormat, hourFormat } from "../Constants/mainConstants";
 
 export const getTooltip = (check) => {
   switch (check) {

@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import Modal from "../Modal/Modal";
-import { FINALIZAR, DELETE } from "../../constants/reducerConstants";
+import { FINALIZAR, DELETE } from "../../Constants/reducerConstants";
 import AppContext from "../../AppContext";
 import { toast } from "react-toastify";
 import { updateAgendamento, deleteAgendamento } from "../../api";

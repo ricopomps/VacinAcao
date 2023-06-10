@@ -2,7 +2,7 @@ import React, { useEffect, useReducer } from "react";
 import { useDebounce } from "./hooks/useDebounce";
 import AppContext, { reducer, initialState } from "./AppContext";
 import { fetchAgendamentos, getWeek } from "./api";
-import { SET_AGENDAMENTOS, SET_WEEK } from "./constants/reducerConstants";
+import { SET_AGENDAMENTOS, SET_WEEK } from "./Constants/reducerConstants";
 const AppContextProvider = ({ children }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const {

@@ -3,7 +3,7 @@ import Button from "react-bootstrap/Button";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Container from "react-bootstrap/Container";
-import { legenda } from "../../constants/mainConstants";
+import { legenda } from "../../Constants/mainConstants";
 
 const Legenda = () => {
   return (
